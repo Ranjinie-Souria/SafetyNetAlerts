@@ -13,7 +13,8 @@ public class SafetyNetAlertsApplication {
 	public static void main(String[] args){
 		SpringApplication.run(SafetyNetAlertsApplication.class, args);
 		try {
-			System.out.println(PersonRepository.getPersons());
+			PersonRepository pr = new PersonRepository();
+			System.out.println(pr.getPersons());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

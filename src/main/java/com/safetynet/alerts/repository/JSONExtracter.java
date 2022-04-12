@@ -28,6 +28,11 @@ public class JSONExtracter {
 	
 	public JsonNode getPersons() throws IOException {
 	    JsonNode jsonPersons = getFullJson().get("persons");
+	    
+	    for (JsonNode person : jsonPersons) {
+            System.out.println(person);
+        }
+	    
 		return jsonPersons;
 	}
 	
