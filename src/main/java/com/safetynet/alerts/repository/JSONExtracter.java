@@ -34,12 +34,16 @@ public class JSONExtracter {
 	    List<Person> listPersons = new ArrayList<Person>();
 	    
 	    for (JsonNode person : jsonPersons) {
-	    	
-            System.out.println(person.get("firstName"));
+	    	listPersons.add(
+	    			new Person(person.get("firstName").toPrettyString(),
+	    					person.get("lastName").toPrettyString(),
+	    					person.get("address").toPrettyString(),
+	    					person.get("city").toPrettyString(),
+	    					person.get("zip").toPrettyString(),
+	    					person.get("phone").toPrettyString(),
+	    					person.get("email").toPrettyString()
+	    					));
         }
-	    
-	    //listPersons.add(new Person("Ran","V", "adresse", "paris", 10, "06", "machin@truc"));
-	    //listPersons.add(new Person("Ran2","V2", "adresse2", "paris2", 102, "062", "machin2@truc"));
 	    
 		return listPersons;
 	}

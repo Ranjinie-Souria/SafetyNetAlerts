@@ -17,12 +17,12 @@ public class SafetyNetAlertsApplication {
 		try {
 			IPersonRepository pr = new PersonRepositoryJSON();
 			System.out.println(pr.findAll());
-			/*pr.save(new Person("Nouveau","Personne", "newadress", "ville", 90, "065", "truc@truc"));
+			pr.save(new Person("Nouveau","Personne", "newadress", "ville", "90", "065", "truc@truc"));
 			System.out.println(pr.findAll());
 			System.out.println(pr.findById(0));
 			System.out.println(pr.findById(1));
 			pr.deleteById(1);
-			System.out.println(pr.findAll());*/
+			System.out.println(pr.findAll());
 			
 		} catch (IOException e) {
 			e.printStackTrace();
