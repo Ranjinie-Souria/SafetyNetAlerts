@@ -2,9 +2,12 @@ package com.safetynet.alerts.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.repository.IPersonRepository;
 
+@Service
 public class PersonService {
 	
 	@Autowired
