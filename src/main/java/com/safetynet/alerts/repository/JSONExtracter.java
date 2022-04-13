@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashMap;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,12 +27,16 @@ public class JSONExtracter {
 		return fullJsonFile;
 	}
 	
-	public List<Person> getPersons() throws IOException {
+	public HashMap<String, Person> getPersons() throws IOException {
 	    JsonNode jsonPersons = getFullJson().get("persons");
-	    List<Person> listPersons = new ArrayList<Person>();
+	    HashMap<String, Person> listPersons = new HashMap<String,Person>();
 	    
 	    for (JsonNode person : jsonPersons) {
-	    	listPersons.add(
+	    	String firstName = person.get("firstName").toPrettyString().toLowerCase();
+	    	String lastName = person.get("lastName").toPrettyString().toLowerCase();
+	    	String keyName = firstName.replaceAll("[^a-zA-Z0-9]", "")+"."
+	    					+lastName.replaceAll("[^a-zA-Z0-9]", "");
+	    	listPersons.put(keyName,
 	    			new Person(person.get("firstName").toPrettyString(),
 	    					person.get("lastName").toPrettyString(),
 	    					person.get("address").toPrettyString(),
@@ -44,7 +46,6 @@ public class JSONExtracter {
 	    					person.get("email").toPrettyString()
 	    					));
         }
-	    
 		return listPersons;
 	}
 	

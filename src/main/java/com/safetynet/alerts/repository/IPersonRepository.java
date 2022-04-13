@@ -1,20 +1,17 @@
 package com.safetynet.alerts.repository;
 
-import java.util.List;
+import java.util.HashMap;
 import com.safetynet.alerts.model.Person;
 
 public interface IPersonRepository {
 	
-	public List<Person> getPersons();
+	public HashMap<String, Person> getPersons();
 	
+	public Person findByName(String name);	
 
-	public Person findById(int id);
-	
+	public HashMap<String, Person> findAll();
 
-	public List<Person> findAll();
-	
-
-	public void deleteById(int id);
+	public void deleteByName(String name);
 
 	public void save(Person person);
 	

@@ -1,6 +1,6 @@
 package com.safetynet.alerts.service;
 
-import java.util.List;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +13,18 @@ public class PersonService {
 	@Autowired
 	private IPersonRepository personRepository;
 	
-	public Person getPerson(final int id) {
-		return personRepository.findById(id);
+	public Person getPerson(String name) {
+		name = name.toLowerCase();
+		return personRepository.findByName(name);
 	}
 	
-	public List<Person> getPersons() {
+	public HashMap<String, Person> getPersons() {
 		return personRepository.findAll();
 	}
 	
-	public void deletePerson(final int id) {
-		personRepository.deleteById(id);
+	public void deletePerson(String name) {
+		name = name.toLowerCase();
+		personRepository.deleteByName(name);
 	}
 	
 	public void savePerson(Person person) {

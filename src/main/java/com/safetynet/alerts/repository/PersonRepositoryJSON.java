@@ -1,7 +1,7 @@
 package com.safetynet.alerts.repository;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
 import org.springframework.stereotype.Repository;
 import com.safetynet.alerts.model.Person;
 
@@ -9,31 +9,32 @@ import com.safetynet.alerts.model.Person;
 public class PersonRepositoryJSON implements IPersonRepository{
 
 	JSONExtracter jsonFile = new JSONExtracter();
-	List<Person> jsonPersons;
+	HashMap<String, Person> jsonPersons;
 	
 	public PersonRepositoryJSON() throws IOException {
 		jsonPersons = jsonFile.getPersons();
 	}
 
-	public List<Person> getPersons(){
+	public HashMap<String, Person> getPersons(){
 		return jsonPersons;
 	}
 
-	public Person findById(int id) {
-		return jsonPersons.get(id);
+	public Person findByName(String keyName) {
+		return jsonPersons.get(keyName);
 	}
 
-	public List<Person> findAll() {
+	public HashMap<String, Person> findAll() {
 		return jsonPersons;
 	}
 
-	public void deleteById(int id) {
-		jsonPersons.remove(id);
+	public void deleteByName(String keyName) {
+		jsonPersons.remove(keyName);
 		
 	}
 
 	public void save(Person person) {
-		jsonPersons.add(person);
+		String keyName = person.getFirstName()+"."+person.getLastName();
+		jsonPersons.put(keyName,person);
 	}
     
     

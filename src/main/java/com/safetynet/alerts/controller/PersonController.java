@@ -1,5 +1,6 @@
 package com.safetynet.alerts.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,9 +37,9 @@ public class PersonController {
 	 * @param id The id of the person
 	 * @return A person object filled
 	 */
-	@GetMapping("/person/{id}")
-	public Person getEmployee(@PathVariable("id") final int id) {
-		Person person = personService.getPerson(id);
+	@GetMapping("/person/{name}")
+	public Person getPerson(@PathVariable("name") String name) {
+		Person person = personService.getPerson(name);
 		if(!person.equals(null)) {
 			return person;
 		} else {
@@ -51,7 +52,7 @@ public class PersonController {
 	 * @return - An Iterable object of person filled
 	 */
 	@GetMapping("/persons")
-	public List<Person> getPersons() {
+	public HashMap<String, Person> getPersons() {
 		return personService.getPersons();
 	}
 	
@@ -61,9 +62,9 @@ public class PersonController {
 	 * @param person - The person object updated
 	 * @return
 	 */
-	@PutMapping("/person/{id}")
-	public Person updatePerson(@PathVariable("id") final int id, @RequestBody Person person) {
-		Person per = personService.getPerson(id);
+	@PutMapping("/person/{name}")
+	public Person updatePerson(@PathVariable("name") final String name, @RequestBody Person person) {
+		Person per = personService.getPerson(name);
 		if(!per.equals(null)) {
 			Person currentPerson = per;
 			
@@ -107,9 +108,9 @@ public class PersonController {
 	 * Delete - Delete a person
 	 * @param id - The id of the person to delete
 	 */
-	@DeleteMapping("/person/{id}")
-	public void deletePerson(@PathVariable("id") final int id) {
-		personService.deletePerson(id);
+	@DeleteMapping("/person/{name}")
+	public void deletePerson(@PathVariable("name") final String name) {
+		personService.deletePerson(name);
 	}
 
 }
