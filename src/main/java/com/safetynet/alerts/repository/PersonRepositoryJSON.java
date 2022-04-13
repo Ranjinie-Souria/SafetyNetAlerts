@@ -9,12 +9,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.safetynet.alerts.model.Person;
 
 @Repository
-public class PersonRepository{
+public class PersonRepositoryJSON implements IPersonRepository{
 
 	JSONExtracter jsonFile = new JSONExtracter();
 	JsonNode jsonPersons;
 	
-	public PersonRepository() throws IOException {
+	public PersonRepositoryJSON() throws IOException {
 		jsonPersons = jsonFile.getPersons();
 	}
 

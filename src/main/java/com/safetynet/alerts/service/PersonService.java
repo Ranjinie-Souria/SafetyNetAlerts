@@ -5,12 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.safetynet.alerts.model.Person;
-import com.safetynet.alerts.repository.PersonRepository;
+import com.safetynet.alerts.repository.IPersonRepository;
 
 public class PersonService {
 	
 	@Autowired
-	private PersonRepository personRepository;
+	private IPersonRepository personRepository;
 	
 	public Optional<Person> getPerson(final Long id) {
 		return personRepository.findById(id);

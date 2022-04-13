@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.alerts.model.Person;
 
 public class JSONExtracter {
 	
@@ -28,9 +31,13 @@ public class JSONExtracter {
 	
 	public JsonNode getPersons() throws IOException {
 	    JsonNode jsonPersons = getFullJson().get("persons");
+	    List<Person> listPersons = new ArrayList<Person>();
 	    
 	    for (JsonNode person : jsonPersons) {
-            System.out.println(person);
+	    	
+	    	//System.out.println(person);
+            //System.out.println(person.get(0).get("firstName"));
+            System.out.println(person.get("firstName"));
         }
 	    
 		return jsonPersons;
