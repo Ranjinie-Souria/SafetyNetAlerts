@@ -29,18 +29,19 @@ public class JSONExtracter {
 		return fullJsonFile;
 	}
 	
-	public JsonNode getPersons() throws IOException {
+	public List<Person> getPersons() throws IOException {
 	    JsonNode jsonPersons = getFullJson().get("persons");
 	    List<Person> listPersons = new ArrayList<Person>();
 	    
 	    for (JsonNode person : jsonPersons) {
 	    	
-	    	//System.out.println(person);
-            //System.out.println(person.get(0).get("firstName"));
             System.out.println(person.get("firstName"));
         }
 	    
-		return jsonPersons;
+	    //listPersons.add(new Person("Ran","V", "adresse", "paris", 10, "06", "machin@truc"));
+	    //listPersons.add(new Person("Ran2","V2", "adresse2", "paris2", 102, "062", "machin2@truc"));
+	    
+		return listPersons;
 	}
 	
 	public JsonNode getFireStations() throws IOException {

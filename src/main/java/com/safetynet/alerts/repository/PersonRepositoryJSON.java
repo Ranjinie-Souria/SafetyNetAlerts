@@ -1,40 +1,39 @@
 package com.safetynet.alerts.repository;
 
 import java.io.IOException;
-import java.util.Optional;
-
+import java.util.List;
 import org.springframework.stereotype.Repository;
-
-import com.fasterxml.jackson.databind.JsonNode;
 import com.safetynet.alerts.model.Person;
 
 @Repository
 public class PersonRepositoryJSON implements IPersonRepository{
 
 	JSONExtracter jsonFile = new JSONExtracter();
-	JsonNode jsonPersons;
+	List<Person> jsonPersons;
 	
 	public PersonRepositoryJSON() throws IOException {
 		jsonPersons = jsonFile.getPersons();
 	}
 
-	public JsonNode getPersons(){
+	public List<Person> getPersons(){
 		return jsonPersons;
 	}
 
-	public Optional<Person> findById(Long id) {
-		return null;
+	public Person findById(int id) {
+		return jsonPersons.get(id);
 	}
 
-	public Iterable<Person> findAll() {
-		return null;
+	public List<Person> findAll() {
+		return jsonPersons;
 	}
 
-	public void deleteById(Long id) {
+	public void deleteById(int id) {
+		jsonPersons.remove(id);
+		
 	}
 
-	public Person save(Person person) {
-		return null;
+	public void save(Person person) {
+		jsonPersons.add(person);
 	}
     
     

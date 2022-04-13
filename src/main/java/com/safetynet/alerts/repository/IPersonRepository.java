@@ -1,24 +1,22 @@
 package com.safetynet.alerts.repository;
 
-import java.util.Optional;
-
-import com.fasterxml.jackson.databind.JsonNode;
+import java.util.List;
 import com.safetynet.alerts.model.Person;
 
 public interface IPersonRepository {
 	
-	public JsonNode getPersons();
+	public List<Person> getPersons();
 	
 
-	public Optional<Person> findById(Long id);
+	public Person findById(int id);
 	
 
-	public Iterable<Person> findAll();
+	public List<Person> findAll();
 	
 
-	public void deleteById(Long id);
+	public void deleteById(int id);
 
-	public Person save(Person person);
+	public void save(Person person);
 	
 
 }

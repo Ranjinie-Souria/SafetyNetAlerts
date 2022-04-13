@@ -1,9 +1,7 @@
 package com.safetynet.alerts.service;
 
-import java.util.Optional;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.repository.IPersonRepository;
 
@@ -12,21 +10,20 @@ public class PersonService {
 	@Autowired
 	private IPersonRepository personRepository;
 	
-	public Optional<Person> getPerson(final Long id) {
+	public Person getPerson(final int id) {
 		return personRepository.findById(id);
 	}
 	
-	public Iterable<Person> getPersons() {
+	public List<Person> getPersons() {
 		return personRepository.findAll();
 	}
 	
-	public void deletePerson(final Long id) {
+	public void deletePerson(final int id) {
 		personRepository.deleteById(id);
 	}
 	
-	public Person savePerson(Person person) {
-		Person savedPerson = personRepository.save(person);
-		return savedPerson;
+	public void savePerson(Person person) {
+		personRepository.save(person);
 	}
 
 }
