@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -53,13 +50,14 @@ public class JSONExtracter {
 		return listPersons;
 	}
 	
-	public List<Firestation> getFirestations() throws IOException {
+	public HashMap<Integer, Firestation> getFirestations() throws IOException {
 	    JsonNode jsonFirestations = getFullJson().get("firestations");
-	    List<Firestation> firestations = new ArrayList<Firestation>();
+	    HashMap<Integer, Firestation> firestations = new HashMap<Integer, Firestation>();
 	    
 	    for(JsonNode firestation : jsonFirestations) {
-	    	firestations.add(new Firestation(firestation.get("address").toPrettyString(),
-	    									firestation.get("station").toPrettyString()));
+	    	int stationNb = Integer.parseInt(firestation.get("station").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""));
+	    	firestations.put(stationNb, new Firestation(firestation.get("address").toPrettyString(),
+	    			stationNb));
 	    }
 	    
 		return firestations;

@@ -1,17 +1,17 @@
 package com.safetynet.alerts.repository;
 
-import java.util.List;
+import java.util.HashMap;
 import com.safetynet.alerts.model.Firestation;
 
 public interface IFirestationRepository {
 	
-	public List<Firestation> getFirestations();
+	public HashMap<Integer, Firestation> getFirestations();
 	
-	public Firestation findByStation(String station);	
+	public Firestation findByStation(int station);	
 
-	public List<Firestation> findAll();
+	public HashMap<Integer, Firestation> findAll();
 
-	public void deleteByStation(String station);
+	public void deleteByStation(int station);
 
 	public void save(Firestation firestation);
 

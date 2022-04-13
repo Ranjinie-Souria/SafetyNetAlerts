@@ -67,14 +67,6 @@ public class PersonController {
 		if(!per.equals(null)) {
 			Person currentPerson = per;
 			
-			String firstName = person.getFirstName();
-			if(firstName != null) {
-				currentPerson.setFirstName(firstName);
-			}
-			String lastName = person.getLastName();
-			if(lastName != null) {
-				currentPerson.setLastName(lastName);;
-			}
 			String mail = person.getEmail();
 			if(mail != null) {
 				currentPerson.setEmail(mail);

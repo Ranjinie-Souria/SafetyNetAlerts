@@ -1,39 +1,45 @@
 package com.safetynet.alerts.repository;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.HashMap;
+
+import org.springframework.stereotype.Repository;
 
 import com.safetynet.alerts.model.Firestation;
 
+@Repository
 public class FirestationRepositoryJSON implements IFirestationRepository {
+	
+	JSONExtracter jsonFile = new JSONExtracter();
+	HashMap<Integer,Firestation> jsonFirestations;
 
-	@Override
-	public List<Firestation> getFirestations() {
-		// TODO Auto-generated method stub
-		return null;
+	public FirestationRepositoryJSON() throws IOException {
+		jsonFirestations = jsonFile.getFirestations();		
 	}
 
 	@Override
-	public Firestation findByStation(String station) {
-		// TODO Auto-generated method stub
-		return null;
+	public HashMap<Integer, Firestation> getFirestations() {
+		return jsonFirestations;
 	}
 
 	@Override
-	public List<Firestation> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public Firestation findByStation(int station) {
+		return jsonFirestations.get(station);
 	}
 
 	@Override
-	public void deleteByStation(String station) {
-		// TODO Auto-generated method stub
-		
+	public HashMap<Integer, Firestation> findAll() {
+		return jsonFirestations;
+	}
+
+	@Override
+	public void deleteByStation(int station) {
+		jsonFirestations.remove(station);
 	}
 
 	@Override
 	public void save(Firestation firestation) {
-		// TODO Auto-generated method stub
-		
+		jsonFirestations.put(firestation.getStation(),firestation);
 	}
 	
 

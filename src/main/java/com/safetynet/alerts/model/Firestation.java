@@ -10,12 +10,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Firestation {
 	
-	public Firestation(String address, String station) {
+	public Firestation(String address, int station) {
 		this.address = address;
 		this.station = station;
 	}
 	
 	private String address;
-	private String station;
+	private int station;
 
 }
