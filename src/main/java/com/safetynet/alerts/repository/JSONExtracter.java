@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Person;
 
 public class JSONExtracter {
@@ -49,9 +53,16 @@ public class JSONExtracter {
 		return listPersons;
 	}
 	
-	public JsonNode getFireStations() throws IOException {
-	    JsonNode jsonPersons = getFullJson().get("firestations");
-		return jsonPersons;
+	public List<Firestation> getFirestations() throws IOException {
+	    JsonNode jsonFirestations = getFullJson().get("firestations");
+	    List<Firestation> firestations = new ArrayList<Firestation>();
+	    
+	    for(JsonNode firestation : jsonFirestations) {
+	    	firestations.add(new Firestation(firestation.get("address").toPrettyString(),
+	    									firestation.get("station").toPrettyString()));
+	    }
+	    
+		return firestations;
 	}
 	
 	public JsonNode getMedicalRecords() throws IOException {
