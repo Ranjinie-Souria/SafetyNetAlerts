@@ -33,7 +33,7 @@ public class PersonController {
 	
 	/**
 	 * Read - Get one person 
-	 * @param id The id of the person
+	 * @param name The name of the person
 	 * @return A person object filled
 	 */
 	@GetMapping("/person/{name}")
@@ -57,7 +57,7 @@ public class PersonController {
 	
 	/**
 	 * Update - Update an existing person
-	 * @param id - The id of the person to update
+	 * @param name - The name of the person to update
 	 * @param person - The person object updated
 	 * @return
 	 */
@@ -97,7 +97,7 @@ public class PersonController {
 	
 	/**
 	 * Delete - Delete a person
-	 * @param id - The id of the person to delete
+	 * @param name - The name of the person to delete
 	 */
 	@DeleteMapping("/person/{name}")
 	public void deletePerson(@PathVariable("name") final String name) {
