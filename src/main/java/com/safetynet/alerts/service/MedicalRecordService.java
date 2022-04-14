@@ -14,11 +14,11 @@ public class MedicalRecordService {
 	@Autowired
 	private IMedicalRecordRepository medicalRecordRepository;
 	
-	public MedicalRecord getFirestation(String name) {
+	public MedicalRecord getMedicalRecord(String name) {
 		return medicalRecordRepository.findByName(name);
 	}
 	
-	public HashMap<String, MedicalRecord> getFirestations() {
+	public HashMap<String, MedicalRecord> getMedicalRecords() {
 		return medicalRecordRepository.findAll();
 	}
 	
