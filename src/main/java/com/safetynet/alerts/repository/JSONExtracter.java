@@ -4,15 +4,26 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 
 public class JSONExtracter {
+	
+	private HashMap<String, Person> persons;
+	
+	public JSONExtracter() throws IOException{
+		persons = getPersons();
+	}
+	
 	
 	/**
 	 * get the json file and extract the objects
@@ -77,9 +88,32 @@ public class JSONExtracter {
 		return firestations;
 	}
 	
-	public JsonNode getMedicalRecords() throws IOException {
-	    JsonNode jsonPersons = getFullJson().get("medicalrecords");
-		return jsonPersons;
+	public HashMap<String, MedicalRecord> getMedicalRecords() throws IOException {
+	    JsonNode jsonMedicalRecords = getFullJson().get("medicalrecords");
+	    
+	    HashMap<String, MedicalRecord> medicalRecords = new HashMap<String, MedicalRecord>();
+	    
+	    for(JsonNode medicalRecord : jsonMedicalRecords) {
+	    	String firstName = medicalRecord.get("firstName").toPrettyString().toLowerCase();
+	    	String lastName = medicalRecord.get("lastName").toPrettyString().toLowerCase();
+	    	String keyName = firstName.replaceAll("[^a-zA-Z0-9]", "")+"."
+	    					+lastName.replaceAll("[^a-zA-Z0-9]", "");
+	    	Person newPerson = persons.get(keyName);
+	    	List<String> medications = new ArrayList<String>();
+	    	List<String> allergies = new ArrayList<String>();
+	    	
+	    	for(int i=0;i<medicalRecord.get("medications").size();i++) {
+	    		medications.add(medicalRecord.get("medications").get(i).toPrettyString().toLowerCase());
+	    	}
+	    	for(int i=0;i<medicalRecord.get("allergies").size();i++) {
+	    		allergies.add(medicalRecord.get("allergies").get(i).toPrettyString().toLowerCase());
+	    	}
+	    	MedicalRecord mR = new MedicalRecord(newPerson, medicalRecord.get("birthdate").toPrettyString().toLowerCase(),
+	    											medications, allergies);
+	    	medicalRecords.put(keyName, mR);
+	    	
+	    }
+		return medicalRecords;
 	}
 
 }
