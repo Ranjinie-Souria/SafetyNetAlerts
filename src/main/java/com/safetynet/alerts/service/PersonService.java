@@ -1,5 +1,6 @@
 package com.safetynet.alerts.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class PersonService {
 	
 	public List<String> getPersonsEmailByCity(String city) {
 		return personRepository.findEmailsByCity(city);
+	}
+
+	public HashMap<Person, List<Person>> getAllChildFromAddress(String address) throws IOException {
+		return personRepository.findChildFromAddress(address);
 	}
 
 }

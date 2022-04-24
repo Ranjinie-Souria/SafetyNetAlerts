@@ -1,5 +1,6 @@
 package com.safetynet.alerts.repository;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public interface IPersonRepository {
 	public void save(Person person);
 
 	public List<String> findEmailsByCity(String city);
+
+	public HashMap<Person, List<Person>> findChildFromAddress(String address) throws IOException;
 	
 
 }

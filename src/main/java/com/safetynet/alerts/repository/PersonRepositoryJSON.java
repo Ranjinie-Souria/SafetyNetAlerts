@@ -1,13 +1,16 @@
 package com.safetynet.alerts.repository;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 
 @Repository
@@ -64,6 +67,41 @@ public class PersonRepositoryJSON implements IPersonRepository{
 			}
 	    }
 		return emails;
+	}
+
+	@Override
+	public HashMap<Person, List<Person>> findChildFromAddress(String address) throws IOException {
+		HashMap<Person,List<Person>> childAndFamily = new HashMap<Person,List<Person>>();
+		MedicalRecordRepositoryJSON medicalRepository = new MedicalRecordRepositoryJSON();
+		LocalDate currentdate = LocalDate.now();
+		int currentYear = currentdate.getYear();
+		
+		for (Entry<String, MedicalRecord> child : medicalRepository.getMedicalRecords().entrySet()) {
+			
+			String birthdate = child.getValue().getBirthdate();
+			String birthyear = birthdate.substring(birthdate.length() - 4);
+			int age = currentYear - Integer.parseInt(birthyear);
+			
+			if(age < 18) {
+				
+				String childAddress = child.getValue().getPerson().getAddress();
+				if(childAddress.equals(address)) {
+					List<Person> families = new ArrayList<Person>();
+					for (Entry<String, Person> person : jsonPersons.entrySet()) {
+						if(person.getValue().getAddress().equals(address)&&
+								person.getValue().getLastName().equals(child.getValue().getPerson().getLastName())) {
+							if(!person.getValue().getFirstName().equals(child.getValue().getPerson().getFirstName())){
+								families.add(person.getValue());
+							}
+						}
+					}
+					childAndFamily.put(child.getValue().getPerson(), families);
+				}
+				
+			}
+			
+	    }
+		return childAndFamily;
 	}
     
     

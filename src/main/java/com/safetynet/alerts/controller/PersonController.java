@@ -1,5 +1,6 @@
 package com.safetynet.alerts.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -116,6 +117,22 @@ public class PersonController {
 	public List<String> getPersonsForFirestation(@RequestParam(name = "city") String city){
 		return personService.getPersonsEmailByCity(city);
 	}
+	
+	
+	/**
+	 * Read - Get all persons emails living in the city
+	 * @return - list of emails
+	 * @throws IOException 
+	 */
+	@GetMapping(path = "/childAlert")
+	public HashMap<Person, List<Person>> getAllChildFromAddress(@RequestParam(name = "address") String address) throws IOException{
+		return personService.getAllChildFromAddress(address);
+	}
+	
+	
+	
+	
+	
 	
 
 }
