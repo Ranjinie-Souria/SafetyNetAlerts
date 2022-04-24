@@ -1,6 +1,8 @@
 package com.safetynet.alerts.repository;
 
 import java.util.HashMap;
+import java.util.List;
+
 import com.safetynet.alerts.model.Person;
 
 public interface IPersonRepository {
@@ -14,6 +16,8 @@ public interface IPersonRepository {
 	public void deleteByName(String name);
 
 	public void save(Person person);
+
+	public List<String> findEmailsByCity(String city);
 	
 
 }

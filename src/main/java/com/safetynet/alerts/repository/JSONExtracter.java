@@ -64,7 +64,7 @@ public class JSONExtracter {
 	    					person.get("city").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
 	    					person.get("zip").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
 	    					person.get("phone").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
-	    					person.get("email").toPrettyString().replaceAll("[^a-zA-Z0-9]", "")
+	    					person.get("email").toPrettyString().replaceAll("\"", "")
 	    					));
         }
 		return listPersons;

@@ -1,6 +1,8 @@
 package com.safetynet.alerts.service;
 
 import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,10 @@ public class PersonService {
 	
 	public void savePerson(Person person) {
 		personRepository.save(person);
+	}
+	
+	public List<String> getPersonsEmailByCity(String city) {
+		return personRepository.findEmailsByCity(city);
 	}
 
 }

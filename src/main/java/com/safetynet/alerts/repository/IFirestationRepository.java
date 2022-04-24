@@ -1,7 +1,9 @@
 package com.safetynet.alerts.repository;
 
+import java.io.IOException;
 import java.util.HashMap;
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.Person;
 
 public interface IFirestationRepository {
 	
@@ -14,5 +16,7 @@ public interface IFirestationRepository {
 	public void deleteByStation(int station);
 
 	public void save(Firestation firestation);
+
+	public HashMap<String, Person> getPersonsForFirestation(int station) throws IOException;
 
 }

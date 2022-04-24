@@ -1,5 +1,6 @@
 package com.safetynet.alerts.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.FirestationService;
 
 @RestController
@@ -89,6 +94,17 @@ public class FirestationController {
 	public void deleteFirestation(@PathVariable("station") final int station) {
 		firestationService.deleteFirestation(station);
 	}
+	
+	/**
+	 * Read - Get all persons living next to the firestation
+	 * @return - An Iterable object of persons filled
+	 * @throws IOException 
+	 */
+	@GetMapping(path = "/firestation")
+	public HashMap<String, Person> getPersonsForFirestation(@RequestParam(name = "stationNumber") int station) throws IOException {
+		return firestationService.getPersonsForFirestation(station);
+	}
+	
 
 
 }
