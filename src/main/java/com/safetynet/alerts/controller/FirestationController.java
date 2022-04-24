@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.FirestationService;
 
@@ -113,6 +114,18 @@ public class FirestationController {
 	public List<String> getPhonesForFirestation(@RequestParam(name = "firestation") int station) throws IOException {
 		return firestationService.getPhoneForFirestation(station);
 	}
+	
+	/**
+	 * Read - Get all persons living next to the firestation with address
+	 * @return - A list of persons
+	 * @throws IOException 
+	 */
+	@GetMapping(path = "/fire")
+	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(@RequestParam(name = "address") String address) throws IOException {
+		return firestationService.getPersonsForFirestationAddress(address);
+	}
+	
+	
 	
 
 

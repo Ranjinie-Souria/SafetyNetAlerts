@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 
 public interface IFirestationRepository {
@@ -22,5 +23,7 @@ public interface IFirestationRepository {
 	public HashMap<String, Person> getPersonsForFirestation(int station) throws IOException;
 
 	public List<String> getPhoneForFirestation(int station) throws IOException;
+
+	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(String address) throws IOException;
 
 }
