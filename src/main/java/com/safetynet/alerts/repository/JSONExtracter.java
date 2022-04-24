@@ -58,13 +58,13 @@ public class JSONExtracter {
 	    	String keyName = firstName.replaceAll("[^a-zA-Z0-9]", "")+"."
 	    					+lastName.replaceAll("[^a-zA-Z0-9]", "");
 	    	listPersons.put(keyName,
-	    			new Person(person.get("firstName").toPrettyString(),
-	    					person.get("lastName").toPrettyString(),
-	    					person.get("address").toPrettyString(),
-	    					person.get("city").toPrettyString(),
-	    					person.get("zip").toPrettyString(),
-	    					person.get("phone").toPrettyString(),
-	    					person.get("email").toPrettyString()
+	    			new Person(person.get("firstName").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
+	    					person.get("lastName").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
+	    					person.get("address").toPrettyString().replaceAll("\"", ""),
+	    					person.get("city").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
+	    					person.get("zip").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
+	    					person.get("phone").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""),
+	    					person.get("email").toPrettyString().replaceAll("[^a-zA-Z0-9]", "")
 	    					));
         }
 		return listPersons;
@@ -81,7 +81,7 @@ public class JSONExtracter {
 	    
 	    for(JsonNode firestation : jsonFirestations) {
 	    	int stationNb = Integer.parseInt(firestation.get("station").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""));
-	    	firestations.put(stationNb, new Firestation(firestation.get("address").toPrettyString(),
+	    	firestations.put(stationNb, new Firestation(firestation.get("address").toPrettyString().replaceAll("\"", ""),
 	    			stationNb));
 	    }
 	    
@@ -103,12 +103,12 @@ public class JSONExtracter {
 	    	List<String> allergies = new ArrayList<String>();
 	    	
 	    	for(int i=0;i<medicalRecord.get("medications").size();i++) {
-	    		medications.add(medicalRecord.get("medications").get(i).toPrettyString().toLowerCase());
+	    		medications.add(medicalRecord.get("medications").get(i).toPrettyString().toLowerCase().replaceAll("\"", ""));
 	    	}
 	    	for(int i=0;i<medicalRecord.get("allergies").size();i++) {
-	    		allergies.add(medicalRecord.get("allergies").get(i).toPrettyString().toLowerCase());
+	    		allergies.add(medicalRecord.get("allergies").get(i).toPrettyString().toLowerCase().replaceAll("\"", ""));
 	    	}
-	    	MedicalRecord mR = new MedicalRecord(newPerson, medicalRecord.get("birthdate").toPrettyString().toLowerCase(),
+	    	MedicalRecord mR = new MedicalRecord(newPerson, medicalRecord.get("birthdate").toPrettyString().toLowerCase().replaceAll("\"", ""),
 	    											medications, allergies);
 	    	medicalRecords.put(keyName, mR);
 	    	

@@ -2,12 +2,15 @@ package com.safetynet.alerts.controller;
 
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.PersonService;
@@ -25,6 +28,7 @@ public class PersonController {
 	 * @return The person object saved
 	 */
 	@PostMapping("/person")
+	//@RequestMapping(value = "/person", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Person createPerson(@RequestBody Person person) {
 		personService.savePerson(person);
 		return person;
@@ -39,7 +43,7 @@ public class PersonController {
 	@GetMapping("/person/{name}")
 	public Person getPerson(@PathVariable("name") String name) {
 		Person person = personService.getPerson(name);
-		if(!person.equals(null)) {
+		if(person != null) {
 			return person;
 		} else {
 			return null;
