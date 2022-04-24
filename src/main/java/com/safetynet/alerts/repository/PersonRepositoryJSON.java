@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.safetynet.alerts.model.Person;
 
 @Repository

@@ -2,13 +2,13 @@ package com.safetynet.alerts.service;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.repository.IFirestationRepository;
-import com.safetynet.alerts.repository.IPersonRepository;
 
 @Service
 public class FirestationService {
@@ -34,6 +34,10 @@ public class FirestationService {
 
 	public HashMap<String, Person> getPersonsForFirestation(int station) throws IOException {
 		return firestationRepository.getPersonsForFirestation(station);
+	}
+	
+	public List<String> getPhoneForFirestation(int station) throws IOException {
+		return firestationRepository.getPhoneForFirestation(station);
 	}
 
 }
