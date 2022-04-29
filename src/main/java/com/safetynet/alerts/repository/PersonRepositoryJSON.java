@@ -105,6 +105,16 @@ public class PersonRepositoryJSON implements IPersonRepository{
 	    }
 		return children;
 	}
+
+	public Map<String, Person> findByAddress(String address) {
+		Map<String, Person> persons = new HashMap<String, Person>();
+		for (Entry<String, Person> person : jsonPersons.entrySet()) {
+			if(person.getValue().getAddress().equals(address)) {
+				persons.put(person.getKey(), person.getValue());
+			}
+		}
+		return persons;
+	}
     
     
 }

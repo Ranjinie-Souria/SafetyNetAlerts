@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.FirestationPersonsCovered;
 import com.safetynet.alerts.model.MedicalRecord;
-import com.safetynet.alerts.model.PersonCoveredByFirestation;
 import com.safetynet.alerts.repository.IFirestationRepository;
 
 @Service

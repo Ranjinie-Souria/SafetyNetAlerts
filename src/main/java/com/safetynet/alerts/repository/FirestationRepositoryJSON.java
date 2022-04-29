@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.FirestationPersonsCovered;
 import com.safetynet.alerts.model.MedicalRecord;
+import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonCoveredByFirestation;
 
 @Repository
@@ -68,16 +68,11 @@ public class FirestationRepositoryJSON implements IFirestationRepository {
 	@Override
 	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(String address) throws IOException {
 		HashMap<String, MedicalRecord> personsForAddress = new HashMap<String, MedicalRecord>();
-		int firestationNb = -1;
-		for(Entry<Integer, Firestation> entry : jsonFirestations.entrySet()) {
-			if(entry.getValue().getAddress().equals(address)) {
-				firestationNb = entry.getKey();
-			}
-		}
+
 		PersonRepositoryJSON personRepository = new PersonRepositoryJSON();
 		MedicalRecordRepositoryJSON medicalRecordRepository = new MedicalRecordRepositoryJSON();
 		
-		for(Entry<String, PersonCoveredByFirestation> entry : personRepository.findByStation(firestationNb).entrySet()) {
+		for(Entry<String, Person> entry : personRepository.findByAddress(address).entrySet()) {
 			
 			if(entry.getValue().equals(medicalRecordRepository.findByName(entry.getKey()).getPerson())) {
 				personsForAddress.put(entry.getKey(),medicalRecordRepository.findByName(entry.getKey()));
