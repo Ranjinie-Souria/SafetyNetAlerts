@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonCoveredByFirestation;
 
 @Repository
 public class PersonRepositoryJSON implements IPersonRepository{
@@ -46,14 +47,16 @@ public class PersonRepositoryJSON implements IPersonRepository{
 		jsonPersons.put(keyName,person);
 	}
 	
-	public HashMap<String, Person> findByStation(int station) throws IOException {
-		HashMap<String, Person> personsByStation = new HashMap<String, Person>();
+	public HashMap<String, PersonCoveredByFirestation> findByStation(int station) throws IOException {
+		
+		HashMap<String, PersonCoveredByFirestation> personsByStation = new HashMap<String, PersonCoveredByFirestation>();
 		FirestationRepositoryJSON firestationRepository = new FirestationRepositoryJSON();
 		String firestationAddress = firestationRepository.findByStation(station).getAddress();
+		
 		for (Map.Entry<String, Person> entry : jsonPersons.entrySet()) {
 			String personAddress = entry.getValue().getAddress();
 			if(personAddress.equalsIgnoreCase(firestationAddress)) {
-				personsByStation.put(entry.getKey(),entry.getValue());
+				personsByStation.put(entry.getKey(),new PersonCoveredByFirestation(entry.getValue()));
 			}
 	    }
 		return personsByStation;

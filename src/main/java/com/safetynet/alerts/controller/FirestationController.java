@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.FirestationPersonsCovered;
 import com.safetynet.alerts.model.MedicalRecord;
-import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.FirestationService;
 
 @RestController
@@ -101,7 +101,7 @@ public class FirestationController {
 	 * @throws IOException 
 	 */
 	@GetMapping(path = "/firestation")
-	public HashMap<String, Person> getPersonsForFirestation(@RequestParam(name = "stationNumber") int station) throws IOException {
+	public FirestationPersonsCovered getPersonsForFirestation(@RequestParam(name = "stationNumber") int station) throws IOException {
 		return firestationService.getPersonsForFirestation(station);
 	}
 	

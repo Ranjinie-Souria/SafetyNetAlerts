@@ -7,8 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.FirestationPersonsCovered;
 import com.safetynet.alerts.model.MedicalRecord;
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonCoveredByFirestation;
 import com.safetynet.alerts.repository.IFirestationRepository;
 
 @Service
@@ -33,7 +34,7 @@ public class FirestationService {
 		firestationRepository.save(firestation);
 	}
 
-	public HashMap<String, Person> getPersonsForFirestation(int station) throws IOException {
+	public FirestationPersonsCovered getPersonsForFirestation(int station) throws IOException {
 		return firestationRepository.getPersonsForFirestation(station);
 	}
 	

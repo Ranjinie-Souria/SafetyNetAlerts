@@ -20,18 +20,18 @@ public class Person {
 		this.email = email;
 	}
 
-	private String firstName;
+	protected String firstName;
 
-	private String lastName;
+	protected String lastName;
 
-	private String address;
+	protected String address;
 
-	private String city;
+	protected String city;
 
-	private String zip;
+	protected String zip;
 
-	private String phone;
+	protected String phone;
 
-	private String email;
+	protected String email;
 	
 }

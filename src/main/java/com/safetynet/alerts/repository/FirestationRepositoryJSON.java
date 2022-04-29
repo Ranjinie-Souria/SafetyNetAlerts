@@ -10,8 +10,9 @@ import java.util.Map.Entry;
 import org.springframework.stereotype.Repository;
 
 import com.safetynet.alerts.model.Firestation;
+import com.safetynet.alerts.model.FirestationPersonsCovered;
 import com.safetynet.alerts.model.MedicalRecord;
-import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonCoveredByFirestation;
 
 @Repository
 public class FirestationRepositoryJSON implements IFirestationRepository {
@@ -49,16 +50,16 @@ public class FirestationRepositoryJSON implements IFirestationRepository {
 	}
 	
 	@Override
-	public HashMap<String, Person> getPersonsForFirestation(int station) throws IOException {
+	public FirestationPersonsCovered getPersonsForFirestation(int station) throws IOException {
 		PersonRepositoryJSON personRepository = new PersonRepositoryJSON();
-		return personRepository.findByStation(station);
+		return new FirestationPersonsCovered(personRepository.findByStation(station));
 	}
 
 	@Override
 	public List<String> getPhoneForFirestation(int station) throws IOException {
-		HashMap<String, Person> persons = getPersonsForFirestation(station);
+		FirestationPersonsCovered persons = getPersonsForFirestation(station);
 		List<String> phones = new ArrayList<String>();
-		for (Map.Entry<String, Person> entry : persons.entrySet()) {
+		for (Entry<String, PersonCoveredByFirestation> entry : persons.getPersonsCovered().entrySet()) {
 			phones.add(entry.getValue().getPhone());
 	    }
 		return phones;
@@ -76,7 +77,7 @@ public class FirestationRepositoryJSON implements IFirestationRepository {
 		PersonRepositoryJSON personRepository = new PersonRepositoryJSON();
 		MedicalRecordRepositoryJSON medicalRecordRepository = new MedicalRecordRepositoryJSON();
 		
-		for(Entry<String, Person> entry : personRepository.findByStation(firestationNb).entrySet()) {
+		for(Entry<String, PersonCoveredByFirestation> entry : personRepository.findByStation(firestationNb).entrySet()) {
 			
 			if(entry.getValue().equals(medicalRecordRepository.findByName(entry.getKey()).getPerson())) {
 				personsForAddress.put(entry.getKey(),medicalRecordRepository.findByName(entry.getKey()));
