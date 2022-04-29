@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.springframework.stereotype.Repository;
 
+import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 
@@ -70,11 +71,11 @@ public class PersonRepositoryJSON implements IPersonRepository{
 	}
 
 	@Override
-	public HashMap<Person, List<Person>> findChildFromAddress(String address) throws IOException {
-		HashMap<Person,List<Person>> childAndFamily = new HashMap<Person,List<Person>>();
+	public List<ChildInfo> findChildFromAddress(String address) throws IOException {
 		MedicalRecordRepositoryJSON medicalRepository = new MedicalRecordRepositoryJSON();
 		LocalDate currentdate = LocalDate.now();
 		int currentYear = currentdate.getYear();
+		List<ChildInfo> children = new ArrayList<ChildInfo>();
 		
 		for (Entry<String, MedicalRecord> child : medicalRepository.getMedicalRecords().entrySet()) {
 			
@@ -83,25 +84,23 @@ public class PersonRepositoryJSON implements IPersonRepository{
 			int age = currentYear - Integer.parseInt(birthyear);
 			
 			if(age < 18) {
-				
 				String childAddress = child.getValue().getPerson().getAddress();
 				if(childAddress.equals(address)) {
-					List<Person> families = new ArrayList<Person>();
+					List<String> families = new ArrayList<String>();
 					for (Entry<String, Person> person : jsonPersons.entrySet()) {
 						if(person.getValue().getAddress().equals(address)&&
 								person.getValue().getLastName().equals(child.getValue().getPerson().getLastName())) {
 							if(!person.getValue().getFirstName().equals(child.getValue().getPerson().getFirstName())){
-								families.add(person.getValue());
+								families.add(person.getValue().getFirstName()+" "+person.getValue().getLastName());
 							}
 						}
 					}
-					childAndFamily.put(child.getValue().getPerson(), families);
+					children.add(new ChildInfo(child.getValue().getPerson(),child.getValue(),families));
+					
 				}
-				
 			}
-			
 	    }
-		return childAndFamily;
+		return children;
 	}
     
     

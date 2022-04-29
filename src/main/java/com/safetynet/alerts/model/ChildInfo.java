@@ -6,38 +6,34 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @Component
 @RequiredArgsConstructor
-public class ChildInfo{
+@EqualsAndHashCode(callSuper = true)
+public class ChildInfo extends PersonInfo{
 	
-	private Person p;
 	private String firstName;
 	private String lastName;
 	private String address;
 	private int age;
 	private String phone;
-	private MedicalRecord mR;
-	private List<Person> family;
+	private List<String> family;
 	
-	public ChildInfo(Person p, MedicalRecord mR,List<Person> family) {
-		this.p = p;
-		this.mR = mR;
+	public ChildInfo(Person person, MedicalRecord medicalRecord,List<String> family) {
 		this.family = family;
 		
-		this.firstName = p.getFirstName();
-		this.lastName = p.getLastName();
-		this.address = p.getAddress();
+		this.firstName = person.getFirstName();
+		this.lastName = person.getLastName();
+		this.address = person.getAddress();
+		this.phone = person.getPhone();
 		
-		String birthdate = mR.getBirthdate();
+		String birthdate = medicalRecord.getBirthdate();
 		String birthyear = birthdate.substring(birthdate.length() - 4);
 		LocalDate currentdate = LocalDate.now();
 		int currentYear = currentdate.getYear();		
 		this.age = currentYear - Integer.parseInt(birthyear);
 	}
-	
-	
-
 }

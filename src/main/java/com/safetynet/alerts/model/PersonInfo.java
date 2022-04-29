@@ -12,17 +12,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonInfo {
 	
-	private Person p;
 	private String firstName;
 	private String lastName;
 	private String address;
 	private int age;
-	private MedicalRecord mR;
 	private String phone;
 	
 	public PersonInfo(Person p, MedicalRecord mR) {
-		this.p = p;
-		this.mR = mR;
 		
 		this.firstName = p.getFirstName();
 		this.lastName = p.getLastName();

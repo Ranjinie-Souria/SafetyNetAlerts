@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.repository.IPersonRepository;
 
@@ -38,7 +39,7 @@ public class PersonService {
 		return personRepository.findEmailsByCity(city);
 	}
 
-	public HashMap<Person, List<Person>> getAllChildFromAddress(String address) throws IOException {
+	public List<ChildInfo> getAllChildFromAddress(String address) throws IOException {
 		return personRepository.findChildFromAddress(address);
 	}
 

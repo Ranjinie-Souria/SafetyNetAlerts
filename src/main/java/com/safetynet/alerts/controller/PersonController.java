@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.service.PersonService;
 
@@ -125,7 +127,7 @@ public class PersonController {
 	 * @throws IOException 
 	 */
 	@GetMapping(path = "/childAlert")
-	public HashMap<Person, List<Person>> getAllChildFromAddress(@RequestParam(name = "address") String address) throws IOException{
+	public List<ChildInfo> getAllChildFromAddress(@RequestParam(name = "address") String address) throws IOException{
 		return personService.getAllChildFromAddress(address);
 	}
 	

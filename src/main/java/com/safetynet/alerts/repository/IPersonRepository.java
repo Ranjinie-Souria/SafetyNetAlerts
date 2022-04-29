@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.Person;
 
 public interface IPersonRepository {
@@ -20,7 +21,7 @@ public interface IPersonRepository {
 
 	public List<String> findEmailsByCity(String city);
 
-	public HashMap<Person, List<Person>> findChildFromAddress(String address) throws IOException;
+	public List<ChildInfo> findChildFromAddress(String address) throws IOException;
 	
 
 }
