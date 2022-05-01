@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonAndMedicalInfo;
 
 public interface IPersonRepository {
 	
@@ -22,6 +23,8 @@ public interface IPersonRepository {
 	public List<String> findEmailsByCity(String city);
 
 	public List<ChildInfo> findChildFromAddress(String address) throws IOException;
+
+	public List<PersonAndMedicalInfo> findPersonsByNames(String firstName, String lastName) throws IOException;
 	
 
 }

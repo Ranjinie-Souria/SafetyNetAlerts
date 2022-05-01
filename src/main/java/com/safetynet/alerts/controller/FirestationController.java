@@ -65,7 +65,6 @@ public class FirestationController {
 	 * Update - Update an existing firestation
 	 * @param id - The id of the firestation to update
 	 * @param firestation - The firestation object updated
-	 * @return
 	 */
 	@PutMapping("/firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") final int station, @RequestBody Firestation firestation) {
@@ -97,6 +96,7 @@ public class FirestationController {
 	
 	/**
 	 * Read - Get all persons living next to the firestation
+	 * @param stationNumber - The stationNumber of the firestation
 	 * @return - An Iterable object of persons filled
 	 * @throws IOException 
 	 */
@@ -107,6 +107,7 @@ public class FirestationController {
 	
 	/**
 	 * Read - Get all phone numbers of people living next to the firestation
+	 * @param firestation - The stationNumber of the firestation
 	 * @return - A list of phone numbers
 	 * @throws IOException 
 	 */
@@ -117,6 +118,7 @@ public class FirestationController {
 	
 	/**
 	 * Read - Get all persons living next to the firestation with address
+	 * @param address - The address
 	 * @return - A list of persons
 	 * @throws IOException 
 	 */

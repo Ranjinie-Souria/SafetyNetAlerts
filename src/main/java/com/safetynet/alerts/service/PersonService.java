@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonAndMedicalInfo;
 import com.safetynet.alerts.repository.IPersonRepository;
 
 @Service
@@ -41,6 +42,10 @@ public class PersonService {
 
 	public List<ChildInfo> getAllChildFromAddress(String address) throws IOException {
 		return personRepository.findChildFromAddress(address);
+	}
+
+	public List<PersonAndMedicalInfo> getPersonsByNames(String firstName, String lastName) throws IOException {
+		return personRepository.findPersonsByNames(firstName,lastName);
 	}
 
 }

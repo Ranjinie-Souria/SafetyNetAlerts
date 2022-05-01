@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonAndMedicalInfo;
 import com.safetynet.alerts.model.PersonCoveredByFirestation;
 
 @Repository
@@ -112,6 +113,31 @@ public class PersonRepositoryJSON implements IPersonRepository{
 			if(person.getValue().getAddress().equals(address)) {
 				persons.put(person.getKey(), person.getValue());
 			}
+		}
+		return persons;
+	}
+
+	@Override
+	public List<PersonAndMedicalInfo> findPersonsByNames(String firstName, String lastName) throws IOException {
+		List<PersonAndMedicalInfo> persons = new ArrayList<PersonAndMedicalInfo>();
+		MedicalRecordRepositoryJSON mRJSON = new MedicalRecordRepositoryJSON();
+		MedicalRecord mR = new MedicalRecord();
+		firstName = firstName.toLowerCase();
+		lastName = lastName.toLowerCase();
+
+		mR = mRJSON.findByName(firstName+"."+lastName);
+		
+		for (Entry<String, Person> person : jsonPersons.entrySet()) {
+
+			firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
+			lastName = lastName.substring(0, 1).toUpperCase() + lastName.substring(1);
+			
+			if(person.getValue().getFirstName().equals(firstName)) {
+				if(person.getValue().getLastName().equals(lastName)) {
+					persons.add(new PersonAndMedicalInfo(person.getValue(), mR));
+				}
+			}
+			
 		}
 		return persons;
 	}

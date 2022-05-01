@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.alerts.model.ChildInfo;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.model.PersonAndMedicalInfo;
 import com.safetynet.alerts.service.PersonService;
 
 
@@ -112,8 +113,9 @@ public class PersonController {
 	}
 	
 	/**
-	 * Read - Get all persons emails living in the city
-	 * @return - list of emails
+	 * Read - Get all persons email living in the city
+	 * @param city - The city
+	 * @return - list of email
 	 */
 	@GetMapping(path = "/communityEmail")
 	public List<String> getPersonsForFirestation(@RequestParam(name = "city") String city){
@@ -122,13 +124,27 @@ public class PersonController {
 	
 	
 	/**
-	 * Read - Get all persons emails living in the city
-	 * @return - list of emails
+	 * Read - Get all children living in the 
+	 * address and the members of their family
+	 * @param address - The address
+	 * @return - list of children
 	 * @throws IOException 
 	 */
 	@GetMapping(path = "/childAlert")
 	public List<ChildInfo> getAllChildFromAddress(@RequestParam(name = "address") String address) throws IOException{
 		return personService.getAllChildFromAddress(address);
+	}
+	
+	/**
+	 * Read - Get all persons with the name
+	 * @param firstName - First name
+	 * @param lastName - Last  name
+	 * @return - list of persons
+	 * @throws IOException 
+	 */
+	@GetMapping(path = "/personInfo")
+	public List<PersonAndMedicalInfo> getPersonsInfo(@RequestParam(name = "firstName") String firstName,@RequestParam(name = "lastName") String lastName) throws IOException{
+		return personService.getPersonsByNames(firstName,lastName);
 	}
 	
 	
