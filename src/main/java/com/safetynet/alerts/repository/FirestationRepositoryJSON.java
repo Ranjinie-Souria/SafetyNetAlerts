@@ -27,7 +27,6 @@ public class FirestationRepositoryJSON implements IFirestationRepository {
 		jsonFirestations = jsonFile.getFirestations();		
 	}
 
-	@Override
 	public HashMap<Integer, Firestation> getFirestations() {
 		return jsonFirestations;
 	}

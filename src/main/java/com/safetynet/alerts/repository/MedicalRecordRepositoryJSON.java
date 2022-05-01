@@ -17,7 +17,6 @@ public class MedicalRecordRepositoryJSON implements IMedicalRecordRepository{
 		jsonMedicalRecord = jsonFile.getMedicalRecords();
 	}
 
-	@Override
 	public HashMap<String, MedicalRecord> getMedicalRecords() {
 		return jsonMedicalRecord;
 	}

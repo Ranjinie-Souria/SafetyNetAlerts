@@ -67,7 +67,7 @@ public class PersonController {
 	 * Update - Update an existing person
 	 * @param name - The name of the person to update
 	 * @param person - The person object updated
-	 * @return
+	 * @return - the updated person
 	 */
 	@PutMapping("/person/{name}")
 	public Person updatePerson(@PathVariable("name") final String name, @RequestBody Person person) {
@@ -128,7 +128,7 @@ public class PersonController {
 	 * address and the members of their family
 	 * @param address - The address
 	 * @return - list of children
-	 * @throws IOException 
+	 * @throws IOException - exception not found 
 	 */
 	@GetMapping(path = "/childAlert")
 	public List<ChildInfo> getAllChildFromAddress(@RequestParam(name = "address") String address) throws IOException{
@@ -140,7 +140,7 @@ public class PersonController {
 	 * @param firstName - First name
 	 * @param lastName - Last  name
 	 * @return - list of persons
-	 * @throws IOException 
+	 * @throws IOException - exception not found 
 	 */
 	@GetMapping(path = "/personInfo")
 	public List<PersonAndMedicalInfo> getPersonsInfo(@RequestParam(name = "firstName") String firstName,@RequestParam(name = "lastName") String lastName) throws IOException{

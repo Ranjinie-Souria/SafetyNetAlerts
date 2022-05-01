@@ -28,6 +28,7 @@ public class JSONExtracter {
 	/**
 	 * get the json file and extract the objects
 	 * @return the full json file as a json node
+	 * @throws IOException - exception not found
 	 */
 	public JsonNode getFullJson() throws IOException {
 		// Creating an Object Mapper
@@ -47,6 +48,7 @@ public class JSONExtracter {
 	 * Gets the persons objects from the json file
 	 * @return a hashmap with the person as a value, with
 	 * the key formatted like : "firstName.lastName"
+	 * @throws IOException - exception not found
 	 */
 	public HashMap<String, Person> getPersons() throws IOException {
 	    JsonNode jsonPersons = getFullJson().get("persons");
@@ -74,6 +76,7 @@ public class JSONExtracter {
 	 * Gets the firestations objects from the json file
 	 * @return a hashmap with the firestations as a value and 
 	 * the station number as a key
+	 * @throws IOException - exception not found
 	 */
 	public HashMap<Integer, Firestation> getFirestations() throws IOException {
 	    JsonNode jsonFirestations = getFullJson().get("firestations");

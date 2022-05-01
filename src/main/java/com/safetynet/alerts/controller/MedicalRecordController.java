@@ -59,11 +59,11 @@ public class MedicalRecordController {
 	/**
 	 * Update - Update an existing Medical Record
 	 * @param name - The name of the person's Medical Record to update
-	 * @param MedicalRecord - The Medical Record object updated
-	 * @return
+	 * @param medicalRecord - The Medical Record object updated
+	 * @return - the updated record
 	 */
 	@PutMapping("/medicalRecord/{name}")
-	public MedicalRecord updateMedicalRecord(@PathVariable("name") final String name, @RequestBody MedicalRecord medicalRecord) {
+	public MedicalRecord updateMedicalRecord(@PathVariable("name") String name, @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord mR = medicalRecordService.getMedicalRecord(name);
 		if(!mR.equals(null)) {
 			MedicalRecord currentMedicalRecord = mR;

@@ -40,7 +40,7 @@ public class FirestationController {
 	
 	/**
 	 * Read - Get one firestation 
-	 * @param id The id of the firestation
+	 * @param station - The id of the firestation
 	 * @return A firestation object filled
 	 */
 	@GetMapping("/firestation/{station}")
@@ -64,8 +64,9 @@ public class FirestationController {
 	
 	/**
 	 * Update - Update an existing firestation
-	 * @param id - The id of the firestation to update
+	 * @param station - The id of the firestation to update
 	 * @param firestation - The firestation object updated
+	 * @return - the updated firestion
 	 */
 	@PutMapping("/firestation/{station}")
 	public Firestation updateFirestation(@PathVariable("station") final int station, @RequestBody Firestation firestation) {
@@ -88,7 +89,7 @@ public class FirestationController {
 	
 	/**
 	 * Delete - Delete a firestation
-	 * @param id - The id of the firestation to delete
+	 * @param station - The id of the firestation to delete
 	 */
 	@DeleteMapping("/firestation/{station}")
 	public void deleteFirestation(@PathVariable("station") final int station) {
@@ -99,29 +100,29 @@ public class FirestationController {
 	 * Read - Get all persons living next to the firestation
 	 * @param stationNumber - The stationNumber of the firestation
 	 * @return - An Iterable object of persons filled
-	 * @throws IOException 
+	 * @throws IOException - exception not found
 	 */
 	@GetMapping(path = "/firestation")
-	public FirestationPersonsCovered getPersonsForFirestation(@RequestParam(name = "stationNumber") int station) throws IOException {
-		return firestationService.getPersonsForFirestation(station);
+	public FirestationPersonsCovered getPersonsForFirestation(@RequestParam(name = "stationNumber") int stationNumber) throws IOException {
+		return firestationService.getPersonsForFirestation(stationNumber);
 	}
 	
 	/**
 	 * Read - Get all phone numbers of people living next to the firestation
 	 * @param firestation - The stationNumber of the firestation
 	 * @return - A list of phone numbers
-	 * @throws IOException 
+	 * @throws IOException - exception not found
 	 */
 	@GetMapping(path = "/phoneAlert")
-	public List<String> getPhonesForFirestation(@RequestParam(name = "firestation") int station) throws IOException {
-		return firestationService.getPhoneForFirestation(station);
+	public List<String> getPhonesForFirestation(@RequestParam(name = "firestation") int firestation) throws IOException {
+		return firestationService.getPhoneForFirestation(firestation);
 	}
 	
 	/**
 	 * Read - Get all persons living next to the firestation with address
 	 * @param address - The address
 	 * @return - A list of persons
-	 * @throws IOException 
+	 * @throws IOException - exception not found 
 	 */
 	@GetMapping(path = "/fire")
 	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(@RequestParam(name = "address") String address) throws IOException {
@@ -134,7 +135,7 @@ public class FirestationController {
 	 * Read - Get all homes living next to each of the stations
 	 * @param stations - A list of stations numbers
 	 * @return - A list of homes
-	 * @throws IOException 
+	 * @throws IOException - exception not found 
 	 */
 	@GetMapping(path = "/flood/stations")
 	public List<Home> getFlood(@RequestParam(name = "stations") List<Integer> stations) throws IOException {
