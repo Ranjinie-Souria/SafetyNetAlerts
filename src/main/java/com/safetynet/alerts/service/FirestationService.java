@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.FirestationPersonsCovered;
+import com.safetynet.alerts.model.Home;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.repository.IFirestationRepository;
 
@@ -43,6 +44,10 @@ public class FirestationService {
 
 	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(String address) throws IOException {
 		return firestationRepository.getPersonsForFirestationAddress(address);
+	}
+
+	public List<Home> getHomesForStations(List<Integer> stations) throws IOException {
+		return firestationRepository.getHomesForStations(stations);
 	}
 
 }

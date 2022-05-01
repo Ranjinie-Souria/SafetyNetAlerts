@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.FirestationPersonsCovered;
+import com.safetynet.alerts.model.Home;
 import com.safetynet.alerts.model.MedicalRecord;
 
 public interface IFirestationRepository {
@@ -25,5 +26,7 @@ public interface IFirestationRepository {
 	public List<String> getPhoneForFirestation(int station) throws IOException;
 
 	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(String address) throws IOException;
+
+	public List<Home> getHomesForStations(List<Integer> stations) throws IOException;
 
 }
