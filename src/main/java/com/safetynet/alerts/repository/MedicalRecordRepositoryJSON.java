@@ -1,7 +1,10 @@
 package com.safetynet.alerts.repository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,18 +20,18 @@ public class MedicalRecordRepositoryJSON implements IMedicalRecordRepository{
 		jsonMedicalRecord = jsonFile.getMedicalRecords();
 	}
 
-	public HashMap<String, MedicalRecord> getMedicalRecords() {
-		return jsonMedicalRecord;
-	}
-
 	@Override
 	public MedicalRecord findByName(String name) {
 		return jsonMedicalRecord.get(name);
 	}
 
 	@Override
-	public HashMap<String, MedicalRecord> findAll() {
-		return jsonMedicalRecord;
+	public List<MedicalRecord> findAll() {
+		List<MedicalRecord> medicalRecords = new ArrayList<MedicalRecord>();
+		for(Entry<String, MedicalRecord> entry : jsonMedicalRecord.entrySet()) {
+			medicalRecords.add(entry.getValue());			
+		}
+		return medicalRecords;
 	}
 
 	@Override

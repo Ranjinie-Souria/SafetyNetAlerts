@@ -1,7 +1,6 @@
 package com.safetynet.alerts.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +57,7 @@ public class FirestationController {
 	 * @return - An Iterable object of firestation filled
 	 */
 	@GetMapping("/firestations")
-	public HashMap<Integer, Firestation> getFirestations() {
+	public List<Firestation> getFirestations() {
 		return firestationService.getFirestations();
 	}
 	
@@ -125,7 +124,7 @@ public class FirestationController {
 	 * @throws IOException - exception not found 
 	 */
 	@GetMapping(path = "/fire")
-	public HashMap<String, MedicalRecord> getPersonsForFirestationAddress(@RequestParam(name = "address") String address) throws IOException {
+	public List<MedicalRecord> getPersonsForFirestationAddress(@RequestParam(name = "address") String address) throws IOException {
 		return firestationService.getPersonsForFirestationAddress(address);
 	}
 	

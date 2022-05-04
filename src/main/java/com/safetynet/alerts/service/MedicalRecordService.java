@@ -1,6 +1,6 @@
 package com.safetynet.alerts.service;
 
-import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class MedicalRecordService {
 		return medicalRecordRepository.findByName(name);
 	}
 	
-	public HashMap<String, MedicalRecord> getMedicalRecords() {
+	public List<MedicalRecord> getMedicalRecords() {
 		return medicalRecordRepository.findAll();
 	}
 	

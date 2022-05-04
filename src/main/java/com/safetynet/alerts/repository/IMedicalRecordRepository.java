@@ -1,6 +1,6 @@
 package com.safetynet.alerts.repository;
 
-import java.util.HashMap;
+import java.util.List;
 
 import com.safetynet.alerts.model.MedicalRecord;
 
@@ -16,7 +16,7 @@ public interface IMedicalRecordRepository {
 	/**
 	 * @return all the medical records with the names as keys
 	 */
-	public HashMap<String, MedicalRecord> findAll();
+	public List<MedicalRecord> findAll();
 
 	/**
 	 * @param name - the name of the medical record to delete
@@ -27,5 +27,6 @@ public interface IMedicalRecordRepository {
 	 * @param medicalRecord - the name of the medical record to save
 	 */
 	public void save(MedicalRecord medicalRecord);
+
 
 }

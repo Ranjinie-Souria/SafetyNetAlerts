@@ -1,6 +1,5 @@
 package com.safetynet.alerts.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,7 +51,7 @@ public class MedicalRecordController {
 	 * @return - An Iterable object of Medical Records filled
 	 */
 	@GetMapping("/medicalRecords")
-	public HashMap<String, MedicalRecord> getMedicalRecord() {
+	public List<MedicalRecord> getMedicalRecord() {
 		return medicalRecordService.getMedicalRecords();
 	}
 	

@@ -1,7 +1,6 @@
 package com.safetynet.alerts.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,6 @@ public class PersonController {
 	 * @return The person object saved
 	 */
 	@PostMapping("/person")
-	//@RequestMapping(value = "/person", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Person createPerson(@RequestBody Person person) {
 		personService.savePerson(person);
 		return person;
@@ -59,7 +57,7 @@ public class PersonController {
 	 * @return - An Iterable object of person filled
 	 */
 	@GetMapping("/persons")
-	public HashMap<String, Person> getPersons() {
+	public List<Person> getPersons() {
 		return personService.getPersons();
 	}
 	
@@ -119,7 +117,7 @@ public class PersonController {
 	 */
 	@GetMapping(path = "/communityEmail")
 	public List<String> getPersonsForFirestation(@RequestParam(name = "city") String city){
-		return personService.getPersonsEmailByCity(city);
+		return personService.findEmailsByCity(city);
 	}
 	
 	
@@ -144,7 +142,7 @@ public class PersonController {
 	 */
 	@GetMapping(path = "/personInfo")
 	public List<PersonAndMedicalInfo> getPersonsInfo(@RequestParam(name = "firstName") String firstName,@RequestParam(name = "lastName") String lastName) throws IOException{
-		return personService.getPersonsByNames(firstName,lastName);
+		return personService.findPersonsByNames(firstName, lastName);
 	}
 	
 	
