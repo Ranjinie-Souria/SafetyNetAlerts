@@ -27,11 +27,19 @@ public class FirestationControllerTest {
 	}
 	
     @Test
-    public void testGetOneFirestation() throws Exception {
+    public void testGetFirestationsByNumber() throws Exception {
     	mockMvc.perform(get("/firestations/").param("station", "3"))
     	.andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.[0].address", is("1509 Culver St")));
+    }
+    
+    @Test
+    public void testGetFirestationsByAddress() throws Exception {
+    	mockMvc.perform(get("/firestations/").param("address", "1509 Culver St"))
+    	.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.[0].station", is(3)));
     }
 
 }
