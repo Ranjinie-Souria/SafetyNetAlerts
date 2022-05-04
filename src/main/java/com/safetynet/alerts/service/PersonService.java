@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.alerts.model.ChildInfo;
+import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonAndMedicalInfo;
@@ -124,17 +125,22 @@ public class PersonService {
 		return persons;
 	}
 
+
 	public List<PersonCoveredByFirestation> findByStation(int station) throws IOException {
 		List<PersonCoveredByFirestation> personsByStation = new ArrayList<PersonCoveredByFirestation>();
-		String firestationAddress = firestationRepository.findByStation(station).getAddress();
 		
-		for (Person entry : personRepository.findAll()) {
-			String personAddress = entry.getAddress();
-			if(personAddress.equalsIgnoreCase(firestationAddress)) {
-				personsByStation.add(new PersonCoveredByFirestation(entry));
-			}
-	    }
+		for(Firestation fr : firestationRepository.findByStation(station)) {
+			String firestationAddress = fr.getAddress();
+			
+			for (Person entry : personRepository.findAll()) {
+				String personAddress = entry.getAddress();
+				if(personAddress.equalsIgnoreCase(firestationAddress)) {
+					personsByStation.add(new PersonCoveredByFirestation(entry));
+				}
+		    }
+		}
 		return personsByStation;
+
 	}
 	
 	

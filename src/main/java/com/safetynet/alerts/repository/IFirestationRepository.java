@@ -9,9 +9,9 @@ public interface IFirestationRepository {
 
 	/**
 	 * @param station - the number of the station
-	 * @return the station found
+	 * @return the stations found
 	 */
-	public Firestation findByStation(int station);	
+	public List<Firestation> findByStation(int station);	
 
 	/**
 	 * @return All the firestations with 
@@ -20,8 +20,8 @@ public interface IFirestationRepository {
 	public List<Firestation> findAll();
 	
 	/**
-	 * Deletes a firestation
-	 * @param station - id of the firestation 
+	 * Deletes firestations
+	 * @param station - id of the firestations
 	 * to delete
 	 */
 	public void deleteByStation(int station);
@@ -32,6 +32,19 @@ public interface IFirestationRepository {
 	 * 
 	 */
 	public void save(Firestation firestation);
+
+	/**
+	 * @param address - the address of the station
+	 * @return the station found
+	 */
+	public Firestation findByStationAddress(String address);
+
+	/**
+	 * Deletes a firestation
+	 * @param station - address of the firestation
+	 * to delete
+	 */
+	public void deleteByStation(String station);
 
 
 

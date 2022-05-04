@@ -1,42 +1,24 @@
 package com.safetynet.alerts.controller;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.mockito.Mockito.*;
-import static org.hamcrest.Matchers.*;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import org.springframework.http.*;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.Charset;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.safetynet.alerts.model.Person;
-
-
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -111,22 +93,24 @@ public class PersonControllerTest {
     
 	@Test
 	public void testGetPersonsForFirestation() throws Exception {
-		mockMvc.perform(get("/communityEmail"))
-		//.param("city","Culver")
+		mockMvc.perform(get("/communityEmail").param("city","Culver"))
 		.andDo(print())
         .andExpect(status().isOk());
 	}
 	
 	@Test
 	public void testGetAllChildFromAddress() throws Exception {
-		mockMvc.perform(get("/childAlert"))
+		mockMvc.perform(get("/childAlert").param("address","1509 Culver St"))
 		.andDo(print())
         .andExpect(status().isOk());
 	}
 	
 	@Test
 	public void testGetPersonsInfo() throws Exception {
-		mockMvc.perform(get("/personInfo"))
+	    MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+	    parameters.add("firstName", "John");
+		parameters.add("lastName", "Boyd");
+		mockMvc.perform(get("/personInfo").params(parameters))
 		.andDo(print())
         .andExpect(status().isOk());
 	}

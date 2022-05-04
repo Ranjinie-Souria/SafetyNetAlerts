@@ -12,33 +12,63 @@ import com.safetynet.alerts.model.Firestation;
 public class FirestationRepositoryJSON implements IFirestationRepository {
 	
 	JSONExtracter jsonFile = new JSONExtracter();
-	HashMap<Integer,Firestation> jsonFirestations;
+	HashMap<Firestation, Integer> jsonFirestations;
 
 	public FirestationRepositoryJSON() throws IOException {
 		jsonFirestations = jsonFile.getFirestations();		
 	}
 	@Override
-	public Firestation findByStation(int station) {
-		return jsonFirestations.get(station);
+	public List<Firestation> findByStation(int station) {
+		List<Firestation> fs = new ArrayList<Firestation>();
+		for(Entry<Firestation, Integer> entry : jsonFirestations.entrySet()) {
+			if(entry.getValue().equals(station)) {
+				fs.add(entry.getKey());
+			}
+		}
+		return fs;
 	}
 
 	@Override
 	public List<Firestation> findAll() {
 		List<Firestation> firestations = new ArrayList<Firestation>();
-		for(Entry<Integer, Firestation> entry : jsonFirestations.entrySet()) {
-			firestations.add(entry.getValue());			
+		for(Entry<Firestation, Integer> entry : jsonFirestations.entrySet()) {
+			firestations.add(entry.getKey());			
 		}
 		return firestations;
 	}
 
 	@Override
-	public void deleteByStation(int station) {
-		jsonFirestations.remove(station);
+	public void deleteByStation(String station) {
+		for(Entry<Firestation, Integer> entry : jsonFirestations.entrySet()) {
+			if(entry.getKey().getAddress().equals(station)) {
+				jsonFirestations.remove(entry.getKey());
+			}
+		}
+		
 	}
 
 	@Override
 	public void save(Firestation firestation) {
-		jsonFirestations.put(firestation.getStation(),firestation);
+		jsonFirestations.put(firestation,firestation.getStation());
+	}
+
+	@Override
+	public Firestation findByStationAddress(String address) {
+		for(Entry<Firestation, Integer> entry : jsonFirestations.entrySet()) {
+			if(entry.getKey().getAddress().equals(address)) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public void deleteByStation(int station) {
+		for(Entry<Firestation, Integer> entry : jsonFirestations.entrySet()) {
+			if(entry.getValue().equals(station)) {
+				jsonFirestations.remove(entry.getKey());
+			}
+		}
 	}
 	
 

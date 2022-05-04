@@ -39,12 +39,27 @@ public class FirestationController {
 	
 	/**
 	 * Read - Get one firestation 
+	 * @param address - The address of the firestation
+	 * @return A firestation object filled
+	 */
+	@GetMapping("/firestation/{address}")
+	public Firestation getFirestation(@PathVariable("address") String address) {
+		Firestation firestation = firestationService.getFirestation(address);
+		if(!firestation.equals(null)) {
+			return firestation;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Read - Get firestations with id 
 	 * @param station - The id of the firestation
 	 * @return A firestation object filled
 	 */
 	@GetMapping("/firestation/{station}")
-	public Firestation getFirestation(@PathVariable("station") int station) {
-		Firestation firestation = firestationService.getFirestation(station);
+	public List<Firestation> getFirestationsById(@PathVariable("station") int station) {
+		List<Firestation> firestation = firestationService.getFirestationsByStation(station);
 		if(!firestation.equals(null)) {
 			return firestation;
 		} else {
@@ -63,12 +78,12 @@ public class FirestationController {
 	
 	/**
 	 * Update - Update an existing firestation
-	 * @param station - The id of the firestation to update
+	 * @param station - The address of the firestation to update
 	 * @param firestation - The firestation object updated
 	 * @return - the updated firestion
 	 */
 	@PutMapping("/firestation/{station}")
-	public Firestation updateFirestation(@PathVariable("station") final int station, @RequestBody Firestation firestation) {
+	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
 		Firestation fire = firestationService.getFirestation(station);
 		if(!fire.equals(null)) {
 			Firestation currentFirestation = fire;
@@ -88,10 +103,10 @@ public class FirestationController {
 	
 	/**
 	 * Delete - Delete a firestation
-	 * @param station - The id of the firestation to delete
+	 * @param station - The address of the firestation to delete
 	 */
 	@DeleteMapping("/firestation/{station}")
-	public void deleteFirestation(@PathVariable("station") final int station) {
+	public void deleteFirestation(@PathVariable("station") String station) {
 		firestationService.deleteFirestation(station);
 	}
 	

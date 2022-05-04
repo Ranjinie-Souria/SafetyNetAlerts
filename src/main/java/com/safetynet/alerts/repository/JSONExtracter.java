@@ -78,14 +78,14 @@ public class JSONExtracter {
 	 * the station number as a key
 	 * @throws IOException - exception not found
 	 */
-	public HashMap<Integer, Firestation> getFirestations() throws IOException {
+	public HashMap<Firestation, Integer> getFirestations() throws IOException {
 	    JsonNode jsonFirestations = getFullJson().get("firestations");
-	    HashMap<Integer, Firestation> firestations = new HashMap<Integer, Firestation>();
+	    HashMap<Firestation, Integer> firestations = new HashMap<Firestation,Integer>();
 	    
 	    for(JsonNode firestation : jsonFirestations) {
 	    	int stationNb = Integer.parseInt(firestation.get("station").toPrettyString().replaceAll("[^a-zA-Z0-9]", ""));
-	    	firestations.put(stationNb, new Firestation(firestation.get("address").toPrettyString().replaceAll("\"", ""),
-	    			stationNb));
+	    	firestations.put(new Firestation(firestation.get("address").toPrettyString().replaceAll("\"", ""),
+	    			stationNb), stationNb);
 	    }
 	    
 		return firestations;

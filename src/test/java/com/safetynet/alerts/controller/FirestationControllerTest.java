@@ -1,7 +1,9 @@
 package com.safetynet.alerts.controller;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -23,5 +25,13 @@ public class FirestationControllerTest {
 		.andDo(print())
         .andExpect(status().isOk());
 	}
+	
+    @Test
+    public void testGetOneFirestation() throws Exception {
+    	mockMvc.perform(get("/firestations/").param("station", "3"))
+    	.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.[0].address", is("1509 Culver St")));
+    }
 
 }

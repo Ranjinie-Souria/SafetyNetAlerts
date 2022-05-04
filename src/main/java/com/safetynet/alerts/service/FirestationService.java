@@ -25,7 +25,11 @@ public class FirestationService {
 	@Autowired
 	private IMedicalRecordRepository medicalRecordRepository;
 	
-	public Firestation getFirestation(int station) {
+	public Firestation getFirestation(String station) {
+		return firestationRepository.findByStationAddress(station);
+	}
+	
+	public List<Firestation> getFirestationsByStation(int station) {
 		return firestationRepository.findByStation(station);
 	}
 	
@@ -33,7 +37,7 @@ public class FirestationService {
 		return firestationRepository.findAll();
 	}
 	
-	public void deleteFirestation(int station) {
+	public void deleteFirestation(String station) {
 		firestationRepository.deleteByStation(station);
 	}
 	
@@ -95,19 +99,20 @@ public class FirestationService {
 		List<Home> homes = new ArrayList<Home>();		
 		for(int station : stations) {
 			List<PersonAndMedicalInfo> persons = new ArrayList<PersonAndMedicalInfo>();
-			String address = firestationRepository.findByStation(station).getAddress();
 			
-			List<Person> personsByAddress = personRepository.findByAddress(address);
-			
-			for (Person person : personsByAddress) {
+			for(Firestation fr : firestationRepository.findByStation(station)) {
+				String address = fr.getAddress();
+				List<Person> personsByAddress = personRepository.findByAddress(address);
 				
-				List<PersonAndMedicalInfo> personByNames = personRepository.findPersonsByNames(person.getFirstName(), person.getLastName());
-				persons.add(personByNames.get(0));
+				for (Person person : personsByAddress) {
+					
+					List<PersonAndMedicalInfo> personByNames = personRepository.findPersonsByNames(person.getFirstName(), person.getLastName());
+					persons.add(personByNames.get(0));
 
+				}
+				
+				homes.add(new Home(address, persons));
 			}
-			
-			homes.add(new Home(address, persons));
-			
 		}
 		
 		
