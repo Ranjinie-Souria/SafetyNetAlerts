@@ -100,6 +100,28 @@ public class FirestationController {
 		}
 	}
 	
+	/**
+	 * Update - Update the number of a firestation
+	 * @param stationNumber - The new number
+	 * @param address - The address of the firestation to update
+	 * @return - the updated firestation
+	 */
+	@PutMapping("/firestation/{address}")
+	public Firestation updateFirestation(@RequestParam(name = "stationNumber") int stationNumber,@PathVariable("address") String address) {
+		Firestation fire = firestationService.getFirestation(address);
+		if(!fire.equals(null)) {
+			Firestation currentFirestation = fire;
+			if(address != null) {				
+				currentFirestation.setStation(stationNumber);
+			}
+			
+			firestationService.saveFirestation(currentFirestation);
+			return currentFirestation;
+		} else {
+			return null;
+		}
+	}
+	
 	
 	/**
 	 * Delete - Delete a firestation
