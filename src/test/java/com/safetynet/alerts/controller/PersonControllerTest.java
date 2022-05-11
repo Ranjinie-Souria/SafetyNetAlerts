@@ -53,6 +53,15 @@ public class PersonControllerTest {
     }
     
     @Test
+    public void testGetUnknownPerson() throws Exception {
+    	mockMvc.perform(get("/person/unknown"))
+    	.andDo(print())
+        .andExpect(status().isOk());
+    	Person p = personRepository.findByName("unknown");
+    	Assertions.assertEquals(p,null);
+    }
+    
+    @Test
     public void createPerson() throws Exception {
     	
         Person anObject = new Person("firstName","lastName","address","city","zip","phone","email");
@@ -65,6 +74,9 @@ public class PersonControllerTest {
     	        .content(requestJson))
     			.andDo(print())
     	        .andExpect(status().isOk());
+    	
+    	Person p = personRepository.findByName("firstName.lastName");
+    	Assertions.assertEquals(p,anObject);
     }
     
     @Test
@@ -90,6 +102,23 @@ public class PersonControllerTest {
     	.andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("address", is("address")));
+    	Person p = personRepository.findByName("john.boyd");
+    	Assertions.assertEquals("address",p.getAddress());
+    }
+    
+    @Test
+    public void updateUnknownPerson() throws Exception {
+    	
+    	mockMvc.perform(get("/person/unknown"))
+    	.andDo(print())
+        .andExpect(status().isOk());
+
+        Person p = personRepository.findByName("unknown");
+    	Assertions.assertEquals(p,null);
+    	mockMvc.perform(put("/person/unknown").contentType(APPLICATION_JSON_UTF8))
+    	    			.andDo(print())
+    	    	        .andExpect(status().is(400));
+
     }
     
     @Test
