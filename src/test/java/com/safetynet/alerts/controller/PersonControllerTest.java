@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.safetynet.alerts.model.Person;
+import com.safetynet.alerts.repository.IPersonRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,6 +29,8 @@ public class PersonControllerTest {
     private MockMvc mockMvc;
 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
+	@Autowired
+	IPersonRepository personRepository;
 	
 	@Test
 	public void testGetAllPersons() throws Exception {
@@ -42,6 +45,9 @@ public class PersonControllerTest {
     	.andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("firstName", is("John")));
+    	
+    	Person p = personRepository.findByName("john.boyd");
+    	System.out.println(p);
     }
     
     @Test

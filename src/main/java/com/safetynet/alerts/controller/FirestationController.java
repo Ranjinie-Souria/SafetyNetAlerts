@@ -57,7 +57,7 @@ public class FirestationController {
 	 * @param station - The id of the firestation
 	 * @return A firestation object filled
 	 */
-	@GetMapping("/firestation/{station}")
+	@GetMapping("/firestation/id/{station}")
 	public List<Firestation> getFirestationsById(@PathVariable("station") int station) {
 		List<Firestation> firestation = firestationService.getFirestationsByStation(station);
 		if(!firestation.equals(null)) {
@@ -82,19 +82,20 @@ public class FirestationController {
 	 * @param firestation - The firestation object updated
 	 * @return - the updated firestion
 	 */
-	@PutMapping("/firestation/{station}")
-	public Firestation updateFirestation(@PathVariable("station") String station, @RequestBody Firestation firestation) {
-		Firestation fire = firestationService.getFirestation(station);
+	@PutMapping("/firestation/{address}")
+	public Firestation updateFirestation(@PathVariable("address") String address, @RequestBody Firestation firestation) {
+		Firestation fire = firestationService.getFirestation(address);
 		if(!fire.equals(null)) {
-			Firestation currentFirestation = fire;
-			
-			String address = firestation.getAddress();
-			if(address != null) {
-				currentFirestation.setAddress(address);
+			Firestation currentFirestation = firestation;
+			if(currentFirestation.getAddress() != null) {
+				fire.setAddress(currentFirestation.getAddress());
 			}
-			
-			firestationService.saveFirestation(currentFirestation);
-			return currentFirestation;
+			int stationNumber = currentFirestation.getStation();
+			if(stationNumber != 0) {
+				fire.setStation(currentFirestation.getStation());
+			}
+			firestationService.saveFirestation(fire);
+			return fire;
 		} else {
 			return null;
 		}
@@ -106,8 +107,8 @@ public class FirestationController {
 	 * @param address - The address of the firestation to update
 	 * @return - the updated firestation
 	 */
-	@PutMapping("/firestation/{address}")
-	public Firestation updateFirestation(@RequestParam(name = "stationNumber") int stationNumber,@PathVariable("address") String address) {
+	@PutMapping("/firestation/{address}/{stationNumber}")
+	public Firestation updateFirestation(@PathVariable(name = "stationNumber") int stationNumber,@PathVariable("address") String address) {
 		Firestation fire = firestationService.getFirestation(address);
 		if(!fire.equals(null)) {
 			Firestation currentFirestation = fire;
