@@ -1,6 +1,7 @@
 package com.safetynet.alerts.controller;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -54,6 +55,8 @@ public class FirestationControllerTest {
     	.andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.[0].address", is("1509 Culver St")));
+    	List<Firestation> f = firestationRepository.findByStation(3);
+    	Assertions.assertEquals("1509 Culver St",f.get(0).getAddress());
     }
     
     @Test
@@ -99,7 +102,25 @@ public class FirestationControllerTest {
     	
     	List<Firestation> firestation = firestationRepository.findByStation(60);
     	Assertions.assertEquals(1,firestation.size());
+    	
     }
+    
+    
+    @Test
+    public void deleteFirestation() throws Exception {
+    	
+    	Firestation fire = firestationRepository.findByStationAddress("748 Townings Dr");
+    	Assertions.assertEquals("748 Townings Dr",fire.getAddress());
+    	
+    	mockMvc.perform(delete("/firestation/748 Townings Dr"))
+    	.andDo(print())
+        .andExpect(status().isOk());
+    	
+    	fire = firestationRepository.findByStationAddress("748 Townings Dr");
+    	Assertions.assertEquals(null,fire);
+    }
+    
+    
     
 
     

@@ -115,6 +115,7 @@ public class PersonControllerTest {
 
         Person p = personRepository.findByName("unknown");
     	Assertions.assertEquals(p,null);
+    	
     	mockMvc.perform(put("/person/unknown").contentType(APPLICATION_JSON_UTF8))
     	    			.andDo(print())
     	    	        .andExpect(status().is(400));
@@ -123,9 +124,16 @@ public class PersonControllerTest {
     
     @Test
     public void deletePerson() throws Exception {
+    	
+    	Person p = personRepository.findByName("john.boyd");
+    	Assertions.assertEquals("John",p.getFirstName());
+    	
     	mockMvc.perform(delete("/person/john.boyd"))
     	.andDo(print())
         .andExpect(status().isOk());
+    	
+    	p = personRepository.findByName("john.boyd");
+    	Assertions.assertEquals(null,p);
     }
     
 	@Test
@@ -150,6 +158,7 @@ public class PersonControllerTest {
 		mockMvc.perform(get("/personInfo").params(parameters))
 		.andDo(print())
         .andExpect(status().isOk());
+		
 	}
     
     
