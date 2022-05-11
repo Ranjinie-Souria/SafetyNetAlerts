@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.nio.charset.Charset;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -45,9 +47,9 @@ public class PersonControllerTest {
     	.andDo(print())
         .andExpect(status().isOk())
         .andExpect(jsonPath("firstName", is("John")));
-    	
+    	Person personExpected = new Person("John","Boyd","1509 Culver St","Culver","97451","8418746512","jaboyd@email.com");
     	Person p = personRepository.findByName("john.boyd");
-    	System.out.println(p);
+    	Assertions.assertEquals(p,personExpected);
     }
     
     @Test

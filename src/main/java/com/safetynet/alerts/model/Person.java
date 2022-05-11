@@ -3,6 +3,7 @@ package com.safetynet.alerts.model;
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 @Data

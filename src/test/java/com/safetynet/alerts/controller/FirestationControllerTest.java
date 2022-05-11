@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.nio.charset.Charset;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -68,29 +69,36 @@ public class FirestationControllerTest {
     	        .andExpect(status().isOk());
     }
     
-    @Test
-    public void updateFirestation() throws Exception {
+
+    
+    @Nested
+    class updateFirestationTest{
     	
-    	mockMvc.perform(get("/firestation/1509 Culver St"))
-    	.andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("station", is(3)));
+        @Test
+        public void updateFirestation() throws Exception {
+        	
+        	mockMvc.perform(get("/firestation/1509 Culver St"))
+        	.andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("station", is(3)));
+        	
+            Firestation anObject = new Firestation("1509 Culver St",5);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            String requestJson=ow.writeValueAsString(anObject);
+            
+        	mockMvc.perform(put("/firestation/1509 Culver St").contentType(APPLICATION_JSON_UTF8)
+        	        .content(requestJson))
+        			.andDo(print())
+        	        .andExpect(status().isOk());
+        	
+        	mockMvc.perform(get("/firestation/1509 Culver St"))
+        	.andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("station", is(5)));
+        }
     	
-        Firestation anObject = new Firestation("1509 Culver St",5);
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(anObject);
-        
-    	mockMvc.perform(put("/firestation/1509 Culver St").contentType(APPLICATION_JSON_UTF8)
-    	        .content(requestJson))
-    			.andDo(print())
-    	        .andExpect(status().isOk());
-    	
-    	mockMvc.perform(get("/firestation/1509 Culver St"))
-    	.andDo(print())
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("station", is(5)));
     }
 
 }
