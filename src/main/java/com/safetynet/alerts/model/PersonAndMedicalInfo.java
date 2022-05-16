@@ -29,6 +29,9 @@ public class PersonAndMedicalInfo extends Person{
 		this.lastName = person.getLastName();
 		this.address = person.getAddress();
 		this.phone = person.getPhone();
+		this.zip = person.getZip();
+		this.city = person.getCity();
+		this.email = person.getEmail();
 		this.medications = medicalRecord.getMedications();
 		this.allergies = medicalRecord.getAllergies();	
 		this.age = this.getAge(medicalRecord);

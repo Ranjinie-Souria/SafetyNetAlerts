@@ -41,8 +41,8 @@ public class MedicalRecordRepositoryJSON implements IMedicalRecordRepository{
 
 	@Override
 	public void save(MedicalRecord medicalRecord) {
-		String keyName = medicalRecord.getPerson().getFirstName()+"."
-						+medicalRecord.getPerson().getFirstName();
+		String keyName = medicalRecord.getPerson().getFirstName()+"."+medicalRecord.getPerson().getLastName();
+		keyName = keyName.toLowerCase();
 		jsonMedicalRecord.put(keyName,medicalRecord);
 	}
 

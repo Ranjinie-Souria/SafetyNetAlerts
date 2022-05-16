@@ -1,10 +1,7 @@
 package com.safetynet.alerts.model;
 
 import java.time.LocalDate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.safetynet.alerts.repository.IMedicalRecordRepository;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,11 +15,16 @@ public class PersonWithAge extends Person{
 	
 	private int age;
 	
-	@Autowired
-	private IMedicalRecordRepository medicalRecordRepository;
-	
 	public PersonWithAge(MedicalRecord mR) {
 		this.setAge(mR);
+		Person entry = mR.getPerson();
+		this.firstName = entry.getFirstName();
+		this.lastName = entry.getLastName();
+		this.address = entry.getAddress();
+		this.city = entry.getCity();
+		this.zip = entry.getZip();
+		this.phone = entry.getPhone();
+		this.email = entry.getEmail();
 	}	
 	
 	public PersonWithAge(PersonWithAge entry) {
@@ -36,7 +38,7 @@ public class PersonWithAge extends Person{
 		this.age = entry.getAge();
 	}
 	
-	public PersonWithAge(Person entry) {
+	public PersonWithAge(Person entry, MedicalRecord mR) {
 		this.firstName = entry.getFirstName();
 		this.lastName = entry.getLastName();
 		this.address = entry.getAddress();
@@ -44,7 +46,6 @@ public class PersonWithAge extends Person{
 		this.zip = entry.getZip();
 		this.phone = entry.getPhone();
 		this.email = entry.getEmail();
-		MedicalRecord mR = medicalRecordRepository.findByName((firstName+"."+lastName.toLowerCase()));
 		this.setAge(mR);
 	}
 

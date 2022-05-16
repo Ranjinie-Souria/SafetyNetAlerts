@@ -39,6 +39,7 @@ public class PersonRepositoryJSON implements IPersonRepository{
 
 	public void save(Person person) {
 		String keyName = person.getFirstName()+"."+person.getLastName();
+		keyName = keyName.toLowerCase();
 		jsonPersons.put(keyName,person);
 	}
 	

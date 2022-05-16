@@ -134,8 +134,11 @@ public class PersonService {
 			
 			for (Person entry : personRepository.findAll()) {
 				String personAddress = entry.getAddress();
+				
 				if(personAddress.equalsIgnoreCase(firestationAddress)) {
-					personsByStation.add(new PersonWithAge(entry));
+					String keyName = entry.getFirstName()+"."+entry.getLastName();
+					MedicalRecord mR = medicalRepository.findByName(keyName.toLowerCase());
+					personsByStation.add(new PersonWithAge(entry,mR));
 				}
 		    }
 		}

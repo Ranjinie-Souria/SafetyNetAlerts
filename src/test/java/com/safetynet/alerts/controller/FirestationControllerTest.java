@@ -120,7 +120,41 @@ public class FirestationControllerTest {
     	Assertions.assertEquals(null,fire);
     }
     
+    @Test
+    public void getPersonsNextToAFirestation() throws Exception {
+    	
+    	mockMvc.perform(get("/firestation").param("stationNumber", "1"))
+    	.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.countAdults", is(5)));
+    }
     
+    @Test
+    public void getPhonesForFirestation() throws Exception {
+    	
+    	mockMvc.perform(get("/phoneAlert").param("firestation", "1"))
+    	.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.size()", is(6)));
+    }
+    
+    @Test
+    public void getPersonsForFirestationAddress() throws Exception {
+    	
+    	mockMvc.perform(get("/fire").param("address", "1509 Culver St"))
+    	.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.size()", is(5)));
+    }
+    
+    @Test
+    public void getHomes() throws Exception {
+    	
+    	mockMvc.perform(get("/flood/stations").param("stations", "1"))
+    	.andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.size()", is(3)));
+    }
     
 
     

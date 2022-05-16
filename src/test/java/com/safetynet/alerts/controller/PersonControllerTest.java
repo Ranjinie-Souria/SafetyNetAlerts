@@ -75,8 +75,8 @@ public class PersonControllerTest {
     			.andDo(print())
     	        .andExpect(status().isOk());
     	
-    	Person p = personRepository.findByName("firstName.lastName");
-    	Assertions.assertEquals(p,anObject);
+    	Person p = personRepository.findByName("firstname.lastname");
+    	Assertions.assertEquals(anObject,p);
     }
     
     @Test
