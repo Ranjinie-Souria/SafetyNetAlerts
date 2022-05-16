@@ -75,14 +75,7 @@ public class FirestationRepositoryJSON implements IFirestationRepository {
 		return null;
 	}
 	
-	@Override
-	public void deleteByStation(int station) {
-		for(Entry<Firestation, Integer> entry : jsonFirestations.entrySet()) {
-			if(entry.getValue().equals(station)) {
-				jsonFirestations.remove(entry.getKey());
-			}
-		}
-	}
+
 	
 
 

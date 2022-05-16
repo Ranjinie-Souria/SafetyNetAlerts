@@ -19,12 +19,6 @@ public interface IFirestationRepository {
 	 */
 	public List<Firestation> findAll();
 	
-	/**
-	 * Deletes firestations
-	 * @param station - id of the firestations
-	 * to delete
-	 */
-	public void deleteByStation(int station);
 
 	/**
 	 * Adds a firestation
