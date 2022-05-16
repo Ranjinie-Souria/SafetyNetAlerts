@@ -12,7 +12,7 @@ import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonAndMedicalInfo;
-import com.safetynet.alerts.model.PersonCoveredByFirestation;
+import com.safetynet.alerts.model.PersonWithAge;
 import com.safetynet.alerts.repository.IFirestationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
 import com.safetynet.alerts.repository.IPersonRepository;
@@ -126,8 +126,8 @@ public class PersonService {
 	}
 
 
-	public List<PersonCoveredByFirestation> findByStation(int station) throws IOException {
-		List<PersonCoveredByFirestation> personsByStation = new ArrayList<PersonCoveredByFirestation>();
+	public List<PersonWithAge> findByStation(int station) throws IOException {
+		List<PersonWithAge> personsByStation = new ArrayList<PersonWithAge>();
 		
 		for(Firestation fr : firestationRepository.findByStation(station)) {
 			String firestationAddress = fr.getAddress();
@@ -135,7 +135,7 @@ public class PersonService {
 			for (Person entry : personRepository.findAll()) {
 				String personAddress = entry.getAddress();
 				if(personAddress.equalsIgnoreCase(firestationAddress)) {
-					personsByStation.add(new PersonCoveredByFirestation(entry));
+					personsByStation.add(new PersonWithAge(entry));
 				}
 		    }
 		}

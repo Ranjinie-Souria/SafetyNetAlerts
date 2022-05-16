@@ -11,7 +11,6 @@ import com.safetynet.alerts.model.Home;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonAndMedicalInfo;
-import com.safetynet.alerts.model.PersonCoveredByFirestation;
 import com.safetynet.alerts.repository.IFirestationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
 
@@ -64,7 +63,7 @@ public class FirestationService {
 	public List<String> getPhoneForFirestation(int station) throws IOException {
 		FirestationPersonsCovered persons = getPersonsForFirestation(station);
 		List<String> phones = new ArrayList<String>();
-		for (PersonCoveredByFirestation entry : persons.getPersonsCovered()) {
+		for (Person entry : persons.getPersonsCovered()) {
 			phones.add(entry.getPhone());
 	    }
 		return phones;

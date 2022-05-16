@@ -1,6 +1,5 @@
 package com.safetynet.alerts.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ChildInfo extends PersonInfo{
+public class ChildInfo extends Person{
 	
 	private String firstName;
 	private String lastName;
@@ -29,11 +28,11 @@ public class ChildInfo extends PersonInfo{
 		this.lastName = person.getLastName();
 		this.address = person.getAddress();
 		this.phone = person.getPhone();
+		this.city = person.getCity();
+		this.zip = person.getZip();
+		this.email = person.getEmail();
 		
-		String birthdate = medicalRecord.getBirthdate();
-		String birthyear = birthdate.substring(birthdate.length() - 4);
-		LocalDate currentdate = LocalDate.now();
-		int currentYear = currentdate.getYear();		
-		this.age = currentYear - Integer.parseInt(birthyear);
+		int childAge = new PersonWithAge(medicalRecord).getAge();
+		this.age = childAge;
 	}
 }

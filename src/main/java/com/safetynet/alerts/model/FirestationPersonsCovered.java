@@ -13,14 +13,14 @@ public class FirestationPersonsCovered {
 	
 	private int countAdults;
 	private int countChildren;
-	private List<PersonCoveredByFirestation> personsCovered;
+	private List<PersonWithAge> personsCovered;
 	
-	public FirestationPersonsCovered(List<PersonCoveredByFirestation> personsCovered) {
+	public FirestationPersonsCovered(List<PersonWithAge> personsCovered) {
 		this.personsCovered = personsCovered;
 		this.countAdults = 0;
 		this.countChildren = 0;
 		
-		for(PersonCoveredByFirestation personCovered : personsCovered) {
+		for(PersonWithAge personCovered : personsCovered) {
 			if(personCovered.getAge()>=18) {
 				countAdults += 1;
 			}

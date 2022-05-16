@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PersonAndMedicalInfo extends PersonInfo{
+public class PersonAndMedicalInfo extends Person{
 	
 	private String firstName;
 	private String lastName;
@@ -30,13 +30,16 @@ public class PersonAndMedicalInfo extends PersonInfo{
 		this.address = person.getAddress();
 		this.phone = person.getPhone();
 		this.medications = medicalRecord.getMedications();
-		this.allergies = medicalRecord.getAllergies();
-		
-		String birthdate = medicalRecord.getBirthdate();
+		this.allergies = medicalRecord.getAllergies();	
+		this.age = this.getAge(medicalRecord);
+	}
+	
+	public int getAge(MedicalRecord mR){
+		String birthdate = mR.getBirthdate();
 		String birthyear = birthdate.substring(birthdate.length() - 4);
 		LocalDate currentdate = LocalDate.now();
 		int currentYear = currentdate.getYear();		
-		this.age = currentYear - Integer.parseInt(birthyear);
+		return currentYear - Integer.parseInt(birthyear);
 	}
 
 }
