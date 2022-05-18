@@ -71,7 +71,7 @@ public class MedicalRecordControllerTest {
 		
 		List<String> medicine = new ArrayList<String>();
 		MedicalRecord anObject = new MedicalRecord(new Person("firstName","lastName","address",
-													"city","zip","phone","email"),"birth",
+													"city","zip","phone","email"),"18/05/2010",
 													medicine,medicine );
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
@@ -98,7 +98,7 @@ public class MedicalRecordControllerTest {
     	
     	List<String> medicine = new ArrayList<String>();
 		MedicalRecord anObject = new MedicalRecord(new Person("John","Boyd","1509 Culver St",
-													"Culver","97451","8418746512","jaboyd@email.com"),"birthdate",
+													"Culver","97451","8418746512","jaboyd@email.com"),"18/05/2010",
 													medicine,medicine );
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
