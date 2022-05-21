@@ -12,7 +12,6 @@ import com.safetynet.alerts.model.Firestation;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.model.PersonAndMedicalInfo;
-import com.safetynet.alerts.model.PersonWithAge;
 import com.safetynet.alerts.repository.IFirestationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
 import com.safetynet.alerts.repository.IPersonRepository;
@@ -126,22 +125,24 @@ public class PersonService {
 	}
 
 
-	public List<PersonWithAge> findByStation(int station) throws IOException {
-		List<PersonWithAge> personsByStation = new ArrayList<PersonWithAge>();
+	public List<PersonAndMedicalInfo> findByStation(int station) throws IOException {
+		List<PersonAndMedicalInfo> personsByStation = new ArrayList<PersonAndMedicalInfo>();
 		
 		for(Firestation fr : firestationRepository.findByStation(station)) {
 			String firestationAddress = fr.getAddress();
 			
 			for (Person entry : personRepository.findAll()) {
+				System.out.println(entry.toString());
 				String personAddress = entry.getAddress();
 				
 				if(personAddress.equalsIgnoreCase(firestationAddress)) {
 					String keyName = entry.getFirstName()+"."+entry.getLastName();
 					MedicalRecord mR = medicalRepository.findByName(keyName.toLowerCase());
-					personsByStation.add(new PersonWithAge(entry,mR));
+					personsByStation.add(new PersonAndMedicalInfo(entry,mR));
 				}
 		    }
 		}
+		System.out.println(personsByStation.toString());
 		return personsByStation;
 
 	}

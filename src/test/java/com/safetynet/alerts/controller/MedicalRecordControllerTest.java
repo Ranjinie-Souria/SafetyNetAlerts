@@ -113,7 +113,7 @@ public class MedicalRecordControllerTest {
     	mockMvc.perform(get("/medicalRecord/john.boyd"))
     	.andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$.birthdate", is("birthdate")));
+        .andExpect(jsonPath("$.birthdate", is("18/05/2010")));
     	
     	MedicalRecord pa = medicalRecordRepository.findByName("john.boyd");
     	Assertions.assertEquals(anObject,pa);

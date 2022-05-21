@@ -24,7 +24,6 @@ public class PersonAndMedicalInfo extends Person{
 	private List<String> allergies;
 	
 	public PersonAndMedicalInfo(Person person, MedicalRecord medicalRecord) {
-		
 		this.firstName = person.getFirstName();
 		this.lastName = person.getLastName();
 		this.address = person.getAddress();
@@ -37,6 +36,20 @@ public class PersonAndMedicalInfo extends Person{
 		this.age = this.getAge(medicalRecord);
 	}
 	
+	
+	public PersonAndMedicalInfo(MedicalRecord mR) {
+		this.age = this.getAge(mR);
+		Person entry = mR.getPerson();
+		this.firstName = entry.getFirstName();
+		this.lastName = entry.getLastName();
+		this.address = entry.getAddress();
+		this.city = entry.getCity();
+		this.zip = entry.getZip();
+		this.phone = entry.getPhone();
+		this.email = entry.getEmail();
+	}	
+	
+
 	public int getAge(MedicalRecord mR){
 		String birthdate = mR.getBirthdate();
 		String birthyear = birthdate.substring(birthdate.length() - 4);
@@ -44,5 +57,7 @@ public class PersonAndMedicalInfo extends Person{
 		int currentYear = currentdate.getYear();		
 		return currentYear - Integer.parseInt(birthyear);
 	}
+	
+
 
 }

@@ -32,7 +32,7 @@ public class ChildInfo extends Person{
 		this.zip = person.getZip();
 		this.email = person.getEmail();
 		
-		int childAge = new PersonWithAge(medicalRecord).getAge();
+		int childAge = new PersonAndMedicalInfo(medicalRecord).getAge();
 		this.age = childAge;
 	}
 }

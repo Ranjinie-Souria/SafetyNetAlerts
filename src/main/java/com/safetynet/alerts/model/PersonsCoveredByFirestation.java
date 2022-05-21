@@ -9,18 +9,18 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Component
 @RequiredArgsConstructor
-public class FirestationPersonsCovered {
+public class PersonsCoveredByFirestation {
 	
 	private int countAdults;
 	private int countChildren;
-	private List<PersonWithAge> personsCovered;
+	private List<PersonAndMedicalInfo> personsCovered;
 	
-	public FirestationPersonsCovered(List<PersonWithAge> personsCovered) {
+	public PersonsCoveredByFirestation(List<PersonAndMedicalInfo> personsCovered) {
 		this.personsCovered = personsCovered;
 		this.countAdults = 0;
 		this.countChildren = 0;
 		
-		for(PersonWithAge personCovered : personsCovered) {
+		for(PersonAndMedicalInfo personCovered : personsCovered) {
 			if(personCovered.getAge()>=18) {
 				countAdults += 1;
 			}

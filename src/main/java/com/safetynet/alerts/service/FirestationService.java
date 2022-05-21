@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.safetynet.alerts.model.Firestation;
-import com.safetynet.alerts.model.FirestationPersonsCovered;
+import com.safetynet.alerts.model.PersonsCoveredByFirestation;
 import com.safetynet.alerts.model.Home;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.model.Person;
@@ -50,8 +50,8 @@ public class FirestationService {
 	 * @return all the persons covered
 	 * @throws IOException - exception not found
 	 */
-	public FirestationPersonsCovered getPersonsForFirestation(int station) throws IOException {
-		return new FirestationPersonsCovered(personRepository.findByStation(station));
+	public PersonsCoveredByFirestation getPersonsForFirestation(int station) throws IOException {
+		return new PersonsCoveredByFirestation(personRepository.findByStation(station));
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class FirestationService {
 	 * @throws IOException - exception not found
 	 */
 	public List<String> getPhoneForFirestation(int station) throws IOException {
-		FirestationPersonsCovered persons = getPersonsForFirestation(station);
+		PersonsCoveredByFirestation persons = getPersonsForFirestation(station);
 		List<String> phones = new ArrayList<String>();
 		for (Person entry : persons.getPersonsCovered()) {
 			phones.add(entry.getPhone());
