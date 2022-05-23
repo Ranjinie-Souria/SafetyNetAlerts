@@ -1,6 +1,5 @@
 package com.safetynet.alerts.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -18,10 +17,11 @@ public class PersonAndMedicalInfo extends Person{
 	private String firstName;
 	private String lastName;
 	private String address;
-	private int age;
+	
 	private String phone;
 	private List<String> medications;
 	private List<String> allergies;
+	private int age;
 	
 	public PersonAndMedicalInfo(Person person, MedicalRecord medicalRecord) {
 		this.firstName = person.getFirstName();
@@ -33,12 +33,13 @@ public class PersonAndMedicalInfo extends Person{
 		this.email = person.getEmail();
 		this.medications = medicalRecord.getMedications();
 		this.allergies = medicalRecord.getAllergies();	
-		this.age = this.getAge(medicalRecord);
+		this.age = medicalRecord.getAge();
+		
 	}
 	
 	
 	public PersonAndMedicalInfo(MedicalRecord mR) {
-		this.age = this.getAge(mR);
+		this.age = mR.getAge();
 		Person entry = mR.getPerson();
 		this.firstName = entry.getFirstName();
 		this.lastName = entry.getLastName();
@@ -50,13 +51,7 @@ public class PersonAndMedicalInfo extends Person{
 	}	
 	
 
-	public int getAge(MedicalRecord mR){
-		String birthdate = mR.getBirthdate();
-		String birthyear = birthdate.substring(birthdate.length() - 4);
-		LocalDate currentdate = LocalDate.now();
-		int currentYear = currentdate.getYear();		
-		return currentYear - Integer.parseInt(birthyear);
-	}
+
 	
 
 

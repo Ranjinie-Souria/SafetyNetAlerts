@@ -117,7 +117,7 @@ public class FirestationControllerTest {
         .andExpect(status().isOk());
     	
     	fire = firestationRepository.findByStationAddress("748 Townings Dr");
-    	Assertions.assertEquals(null,fire);
+    	Assertions.assertNull(fire);
     }
     
     @Test

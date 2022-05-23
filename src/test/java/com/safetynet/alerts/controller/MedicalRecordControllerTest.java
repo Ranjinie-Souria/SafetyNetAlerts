@@ -67,7 +67,7 @@ public class MedicalRecordControllerTest {
 	public void testCreateMedicalRecord() throws Exception {
 		
 		MedicalRecord p = medicalRecordRepository.findByName("firstname.lastname");
-		Assertions.assertEquals(null,p);
+		Assertions.assertNull(p);
 		
 		List<String> medicine = new ArrayList<String>();
 		MedicalRecord anObject = new MedicalRecord(new Person("firstName","lastName","address",
@@ -116,7 +116,7 @@ public class MedicalRecordControllerTest {
         .andExpect(jsonPath("$.birthdate", is("18/05/2010")));
     	
     	MedicalRecord pa = medicalRecordRepository.findByName("john.boyd");
-    	Assertions.assertEquals(anObject,pa);
+    	Assertions.assertEquals(anObject.getBirthdate(),pa.getBirthdate());
     }
     
     @Test
@@ -130,7 +130,7 @@ public class MedicalRecordControllerTest {
         .andExpect(status().isOk());
     	
     	p = medicalRecordRepository.findByName("john.boyd");
-    	Assertions.assertEquals(null,p);
+    	Assertions.assertNull(p);
     }
 	
 }

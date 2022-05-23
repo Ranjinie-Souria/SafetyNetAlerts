@@ -1,7 +1,6 @@
 package com.safetynet.alerts.service;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,15 +57,11 @@ public class PersonService {
 
 	public List<ChildInfo> getAllChildFromAddress(String address) throws IOException {
 		logger.info("Children's address : "+address);
-		LocalDate currentdate = LocalDate.now();
-		int currentYear = currentdate.getYear();
 		List<ChildInfo> children = new ArrayList<ChildInfo>();
 		
 		for (MedicalRecord child : medicalRepository.findAll()) {
-			
-			String birthdate = child.getBirthdate();
-			String birthyear = birthdate.substring(birthdate.length() - 4);
-			int age = currentYear - Integer.parseInt(birthyear);
+						
+			int age = child.getAge();
 			
 			if(age < 18) {
 				String childAddress = child.getPerson().getAddress();

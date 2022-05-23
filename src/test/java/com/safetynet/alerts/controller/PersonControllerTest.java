@@ -58,7 +58,7 @@ public class PersonControllerTest {
     	.andDo(print())
         .andExpect(status().isOk());
     	Person p = personRepository.findByName("unknown");
-    	Assertions.assertEquals(p,null);
+    	Assertions.assertNull(p);
     }
     
     @Test
@@ -114,7 +114,7 @@ public class PersonControllerTest {
         .andExpect(status().isOk());
 
         Person p = personRepository.findByName("unknown");
-    	Assertions.assertEquals(p,null);
+    	Assertions.assertNull(p);
     	
     	mockMvc.perform(put("/person/unknown").contentType(APPLICATION_JSON_UTF8))
     	    			.andDo(print())
@@ -133,7 +133,7 @@ public class PersonControllerTest {
         .andExpect(status().isOk());
     	
     	p = personRepository.findByName("john.boyd");
-    	Assertions.assertEquals(null,p);
+    	Assertions.assertNull(p);
     }
     
 	@Test
