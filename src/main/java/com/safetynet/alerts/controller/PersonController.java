@@ -3,6 +3,8 @@ package com.safetynet.alerts.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,8 @@ import com.safetynet.alerts.service.PersonService;
 @RestController
 public class PersonController {
 	
+	private static final Logger logger = LogManager.getLogger("PersonController");
+	
 	@Autowired
 	private PersonService personService;
 	
@@ -32,6 +36,7 @@ public class PersonController {
 	 */
 	@PostMapping("/person")
 	public Person createPerson(@RequestBody Person person) {
+		logger.info("Saving person : "+person);
 		personService.savePerson(person);
 		return person;
 	}
@@ -44,10 +49,13 @@ public class PersonController {
 	 */
 	@GetMapping("/person/{name}")
 	public Person getPerson(@PathVariable("name") String name) {
+		logger.info("Getting person with name : "+name);
 		Person person = personService.getPerson(name);
 		if(person != null) {
+			logger.info("Person found");
 			return person;
 		} else {
+			logger.info("Person not found");
 			return null;
 		}
 	}
@@ -58,6 +66,7 @@ public class PersonController {
 	 */
 	@GetMapping("/persons")
 	public List<Person> getPersons() {
+		logger.info("Getting all persons");
 		return personService.getPersons();
 	}
 	
@@ -69,8 +78,9 @@ public class PersonController {
 	 */
 	@PutMapping("/person/{name}")
 	public Person updatePerson(@PathVariable("name") final String name, @RequestBody Person person) {
+		logger.info("Updating person : "+name);
 		Person per = personService.getPerson(name);
-		if(!per.equals(null)) {
+		if(!(per == null)) {
 			Person currentPerson = per;
 			
 			String mail = person.getEmail();
@@ -107,6 +117,7 @@ public class PersonController {
 	 */
 	@DeleteMapping("/person/{name}")
 	public void deletePerson(@PathVariable("name") final String name) {
+		logger.info("Deleting Person : "+name);
 		personService.deletePerson(name);
 	}
 	
@@ -117,6 +128,7 @@ public class PersonController {
 	 */
 	@GetMapping(path = "/communityEmail")
 	public List<String> getPersonsForFirestation(@RequestParam(name = "city") String city){
+		logger.info("Getting all emails in city : "+city);
 		return personService.findEmailsByCity(city);
 	}
 	
@@ -130,6 +142,7 @@ public class PersonController {
 	 */
 	@GetMapping(path = "/childAlert")
 	public List<ChildInfo> getAllChildFromAddress(@RequestParam(name = "address") String address) throws IOException{
+		logger.info("Getting all children in address : "+address);
 		return personService.getAllChildFromAddress(address);
 	}
 	
@@ -142,6 +155,7 @@ public class PersonController {
 	 */
 	@GetMapping(path = "/personInfo")
 	public List<PersonAndMedicalInfo> getPersonsInfo(@RequestParam(name = "firstName") String firstName,@RequestParam(name = "lastName") String lastName) throws IOException{
+		logger.info("Getting all persons with name : "+firstName+" "+lastName);
 		return personService.findPersonsByNames(firstName, lastName);
 	}
 	

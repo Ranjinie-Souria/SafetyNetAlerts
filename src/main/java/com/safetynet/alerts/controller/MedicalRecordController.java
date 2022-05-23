@@ -1,6 +1,9 @@
 package com.safetynet.alerts.controller;
 
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,8 @@ import com.safetynet.alerts.service.MedicalRecordService;
 
 @RestController
 public class MedicalRecordController {
+	
+	private static final Logger logger = LogManager.getLogger("MedicalRecordController");
 
 	@Autowired
 	private MedicalRecordService medicalRecordService;
@@ -26,6 +31,7 @@ public class MedicalRecordController {
 	 */
 	@PostMapping("/medicalRecord")
 	public MedicalRecord createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+		logger.info("Creating Medical Record");
 		medicalRecordService.saveMedicalRecord(medicalRecord);
 		return medicalRecord;
 	}
@@ -38,10 +44,13 @@ public class MedicalRecordController {
 	 */
 	@GetMapping("/medicalRecord/{name}")
 	public MedicalRecord getMedicalRecord(@PathVariable("name") String name) {
+		logger.info("Getting Medical Record with name "+name);
 		MedicalRecord medicalRecord = medicalRecordService.getMedicalRecord(name);
-		if(!medicalRecord.equals(null)) {
+		if(!(medicalRecord == null)) {
+			logger.info("Medical Record found");
 			return medicalRecord;
 		} else {
+			logger.info("Medical Record not found");
 			return null;
 		}
 	}
@@ -52,6 +61,7 @@ public class MedicalRecordController {
 	 */
 	@GetMapping("/medicalRecords")
 	public List<MedicalRecord> getMedicalRecord() {
+		logger.info("Getting all Medical Records");
 		return medicalRecordService.getMedicalRecords();
 	}
 	
@@ -64,7 +74,8 @@ public class MedicalRecordController {
 	@PutMapping("/medicalRecord/{name}")
 	public MedicalRecord updateMedicalRecord(@PathVariable("name") String name, @RequestBody MedicalRecord medicalRecord) {
 		MedicalRecord mR = medicalRecordService.getMedicalRecord(name);
-		if(!mR.equals(null)) {
+		logger.info("Updating Medical Record "+name);
+		if(!(mR == null)) {
 			MedicalRecord currentMedicalRecord = mR;
 			
 			String birthdate = medicalRecord.getBirthdate();
@@ -94,6 +105,7 @@ public class MedicalRecordController {
 	 */
 	@DeleteMapping("/medicalRecord/{name}")
 	public void deletePerson(@PathVariable("name") final String name) {
+		logger.info("Deleting Medical Record "+name);
 		medicalRecordService.deleteMedicalRecord(name);
 	}
 

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import com.safetynet.alerts.repository.IPersonRepository;
 @Service
 public class PersonService {
 	
+	private static final Logger logger = LogManager.getLogger("PersonService");
+	
 	@Autowired
 	private IPersonRepository personRepository;
 	
@@ -30,25 +35,29 @@ public class PersonService {
 	
 	public Person getPerson(String name) {
 		name = name.toLowerCase();
+		logger.info("Getting the person with keyname : "+name);
 		return personRepository.findByName(name);
 	}
 	
 	public List<Person> getPersons() {
+		logger.info("Getting all persons");
 		return personRepository.findAll();
 	}
 	
 	public void deletePerson(String name) {
 		name = name.toLowerCase();
+		logger.info("Deleting the person with keyname : "+name);
 		personRepository.deleteByName(name);
 	}
 	
 	public void savePerson(Person person) {
+		logger.info("Saving the person : "+person);
 		personRepository.save(person);
 	}
 
 
 	public List<ChildInfo> getAllChildFromAddress(String address) throws IOException {
-		
+		logger.info("Children's address : "+address);
 		LocalDate currentdate = LocalDate.now();
 		int currentYear = currentdate.getYear();
 		List<ChildInfo> children = new ArrayList<ChildInfo>();
@@ -76,6 +85,7 @@ public class PersonService {
 				}
 			}
 	    }
+		logger.info("Children Information list : "+children);
 		return children;
 	}
 	
@@ -85,12 +95,14 @@ public class PersonService {
 	 */
 	public List<String> findEmailsByCity(String city) {
 		List<String> emails = new ArrayList<String>();
+		logger.info("Finding emails for the city : "+city);
 		for (Person entry : personRepository.findAll()) {
 			String personCity = entry.getCity();
 			if(personCity.equalsIgnoreCase(city)) {
 				emails.add(entry.getEmail());
 			}
 	    }
+		logger.info("Emails list : "+emails);
 		return emails;
 	}
 
@@ -103,12 +115,10 @@ public class PersonService {
 	 */
 	public List<PersonAndMedicalInfo> findPersonsByNames(String firstName, String lastName) throws IOException {
 		List<PersonAndMedicalInfo> persons = new ArrayList<PersonAndMedicalInfo>();
-		MedicalRecord mR = new MedicalRecord();
+		
 		firstName = firstName.toLowerCase();
 		lastName = lastName.toLowerCase();
-
-		mR = medicalRepository.findByName(firstName+"."+lastName);
-		
+		MedicalRecord mR = medicalRepository.findByName(firstName+"."+lastName);
 		for (Person person : personRepository.findAll()) {
 
 			firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1);
@@ -121,6 +131,7 @@ public class PersonService {
 			}
 			
 		}
+		logger.info("Persons with name "+firstName+" "+lastName+": "+persons);
 		return persons;
 	}
 
@@ -142,7 +153,7 @@ public class PersonService {
 				}
 		    }
 		}
-		System.out.println(personsByStation.toString());
+
 		return personsByStation;
 
 	}

@@ -3,6 +3,8 @@ package com.safetynet.alerts.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,8 @@ import com.safetynet.alerts.service.FirestationService;
 @RestController
 public class FirestationController {
 	
+	private static final Logger logger = LogManager.getLogger("FirestationController");
+	
 	@Autowired
 	private FirestationService firestationService;
 	
@@ -32,6 +36,7 @@ public class FirestationController {
 	 */
 	@PostMapping("/firestation")
 	public Firestation createFirestation(@RequestBody Firestation firestation) {
+		logger.info("Saving firestation : "+firestation);
 		firestationService.saveFirestation(firestation);
 		return firestation;
 	}
@@ -44,8 +49,9 @@ public class FirestationController {
 	 */
 	@GetMapping("/firestation/{address}")
 	public Firestation getFirestation(@PathVariable("address") String address) {
+		logger.info("Getting firestation at address : "+address);
 		Firestation firestation = firestationService.getFirestation(address);
-		if(!firestation.equals(null)) {
+		if(!(firestation == null)) {
 			return firestation;
 		} else {
 			return null;
@@ -59,10 +65,13 @@ public class FirestationController {
 	 */
 	@GetMapping("/firestation/id/{station}")
 	public List<Firestation> getFirestationsById(@PathVariable("station") int station) {
+		logger.info("Getting firestations with number : "+station);
 		List<Firestation> firestation = firestationService.getFirestationsByStation(station);
-		if(!firestation.equals(null)) {
+		if(!(firestation == null)) {
+			logger.info("Firestations :"+firestation);
 			return firestation;
 		} else {
+			logger.info("No firestation found");
 			return null;
 		}
 	}
@@ -73,6 +82,7 @@ public class FirestationController {
 	 */
 	@GetMapping("/firestations")
 	public List<Firestation> getFirestations() {
+		logger.info("Getting all firestations");
 		return firestationService.getFirestations();
 	}
 	
@@ -84,8 +94,9 @@ public class FirestationController {
 	 */
 	@PutMapping("/firestation/{address}")
 	public Firestation updateFirestationAddress(@PathVariable("address") String address, @RequestBody Firestation firestation) {
+		logger.info("Updating firestation address ");
 		Firestation fire = firestationService.getFirestation(address);
-		if(!fire.equals(null)) {
+		if(!(fire == null)) {
 			Firestation currentFirestation = firestation;
 			if(currentFirestation.getAddress() != null) {
 				fire.setAddress(currentFirestation.getAddress());
@@ -109,8 +120,9 @@ public class FirestationController {
 	 */
 	@PutMapping("/firestation/")
 	public Firestation updateFirestation(@RequestParam(name = "stationNumber") int stationNumber,@RequestParam("address") String address) {
+		logger.info("Updating firestation number ");
 		Firestation fire = firestationService.getFirestation(address);
-		if(!fire.equals(null)) {
+		if(!(fire == null)) {
 			Firestation currentFirestation = fire;
 			if(address != null) {				
 				currentFirestation.setStation(stationNumber);
@@ -130,6 +142,7 @@ public class FirestationController {
 	 */
 	@DeleteMapping("/firestation/{station}")
 	public void deleteFirestation(@PathVariable("station") String station) {
+		logger.info("Deleting Firestation : "+station);
 		firestationService.deleteFirestation(station);
 	}
 	
@@ -141,6 +154,7 @@ public class FirestationController {
 	 */
 	@GetMapping(path = "/firestation")
 	public PersonsCoveredByFirestation getPersonsForFirestation(@RequestParam(name = "stationNumber") int stationNumber) throws IOException {
+		logger.info("Getting persons covered by firestation : "+stationNumber);
 		return firestationService.getPersonsForFirestation(stationNumber);
 	}
 	
@@ -152,6 +166,7 @@ public class FirestationController {
 	 */
 	@GetMapping(path = "/phoneAlert")
 	public List<String> getPhonesForFirestation(@RequestParam(name = "firestation") int firestation) throws IOException {
+		logger.info("Getting all phone numbers for firestation "+firestation);
 		return firestationService.getPhoneForFirestation(firestation);
 	}
 	
@@ -163,6 +178,7 @@ public class FirestationController {
 	 */
 	@GetMapping(path = "/fire")
 	public List<MedicalRecord> getPersonsForFirestationAddress(@RequestParam(name = "address") String address) throws IOException {
+		logger.info("Getting Medical Records of persons living next to the firestation with address "+address);
 		return firestationService.getPersonsForFirestationAddress(address);
 	}
 	
@@ -176,6 +192,7 @@ public class FirestationController {
 	 */
 	@GetMapping(path = "/flood/stations")
 	public List<Home> getFlood(@RequestParam(name = "stations") List<Integer> stations) throws IOException {
+		logger.info("Getting all homes in stations : "+stations);
 		return firestationService.getHomesForStations(stations);
 	}
 
