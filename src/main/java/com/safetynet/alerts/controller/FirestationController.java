@@ -88,7 +88,7 @@ public class FirestationController {
 	
 	/**
 	 * Update - Update an existing firestation
-	 * @param station - The address of the firestation to update
+	 * @param address - The address of the firestation to update
 	 * @param firestation - The firestation object updated
 	 * @return - the updated firestion
 	 */
