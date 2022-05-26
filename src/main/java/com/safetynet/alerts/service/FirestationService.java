@@ -113,9 +113,6 @@ public class FirestationService {
 				homes.add(new Home(address, persons));
 			}
 		}
-		
-		
-		
 		return homes;
 	}
 
