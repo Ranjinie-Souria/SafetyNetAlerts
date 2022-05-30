@@ -80,7 +80,7 @@ public class FirestationService {
 		
 		for(Person entry : personRepository.findByAddress(address)) {
 			MedicalRecord personAddress = medicalRecordRepository.findByName(entry.getFirstName().toLowerCase()+"."+entry.getLastName().toLowerCase());
-			if(entry.equals(personAddress.getPerson())) {
+			if(entry.getFirstName().equals(personAddress.getPerson().getFirstName())) {
 				personsForAddress.add(personAddress);
 			}
 		}

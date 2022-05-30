@@ -50,7 +50,7 @@ public class MedicalRecordController {
 			logger.info("Medical Record found");
 			return medicalRecord;
 		} else {
-			logger.info("Medical Record not found");
+			logger.error("Medical Record not found");
 			return null;
 		}
 	}
@@ -94,6 +94,7 @@ public class MedicalRecordController {
 			medicalRecordService.saveMedicalRecord(currentMedicalRecord);
 			return currentMedicalRecord;
 		} else {
+			logger.error("Medical Record could not be updated");
 			return null;
 		}
 	}

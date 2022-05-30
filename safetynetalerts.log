@@ -1,0 +1,7 @@
+2022-05-30 11:53:40.684  INFO 6072 --- [main] c.s.alerts.SafetyNetAlertsApplication    : Starting SafetyNetAlertsApplication using Java 14.0.1 on Ranji-DESKTOP with PID 6072 (R:\Users\Ranji\eclipse-workspace\SafetyNetAlerts\target\classes started by Ranji in R:\Users\Ranji\eclipse-workspace\SafetyNetAlerts)
+2022-05-30 11:53:40.687  INFO 6072 --- [main] c.s.alerts.SafetyNetAlertsApplication    : No active profile set, falling back to 1 default profile: "default"
+2022-05-30 11:53:41.493  INFO 6072 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9000 (http)
+2022-05-30 11:53:42.019  INFO 6072 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9000 (http) with context path ''
+2022-05-30 11:53:42.026  INFO 6072 --- [main] c.s.alerts.SafetyNetAlertsApplication    : Started SafetyNetAlertsApplication in 1.674 seconds (JVM running for 2.252)
+2022-05-30 11:54:06.350  INFO 6072 --- [http-nio-9000-exec-2] c.s.alerts.controller.PersonController   : Getting person with name : test.test
+2022-05-30 11:54:06.351 ERROR 6072 --- [http-nio-9000-exec-2] c.s.alerts.controller.PersonController   : Person not found

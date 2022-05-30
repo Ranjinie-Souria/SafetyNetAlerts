@@ -54,6 +54,7 @@ public class FirestationController {
 		if(!(firestation == null)) {
 			return firestation;
 		} else {
+			logger.error("Firestation not found");
 			return null;
 		}
 	}
@@ -71,7 +72,7 @@ public class FirestationController {
 			logger.info("Firestations :"+firestation);
 			return firestation;
 		} else {
-			logger.info("No firestation found");
+			logger.error("No firestation found");
 			return null;
 		}
 	}
@@ -108,6 +109,7 @@ public class FirestationController {
 			firestationService.saveFirestation(fire);
 			return fire;
 		} else {
+			logger.error("Firestation address could not be updated");
 			return null;
 		}
 	}
@@ -131,6 +133,7 @@ public class FirestationController {
 			firestationService.saveFirestation(currentFirestation);
 			return currentFirestation;
 		} else {
+			logger.error("Firestation could not be updated");
 			return null;
 		}
 	}

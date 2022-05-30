@@ -55,7 +55,7 @@ public class PersonController {
 			logger.info("Person found");
 			return person;
 		} else {
-			logger.info("Person not found");
+			logger.error("Person not found");
 			return null;
 		}
 	}
@@ -106,6 +106,7 @@ public class PersonController {
 			personService.savePerson(currentPerson);
 			return currentPerson;
 		} else {
+			logger.error("Person could not be updated");
 			return null;
 		}
 	}

@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class SafetyNetAlertsApplication {
-	//private static final Logger logger = LogManager.getLogger(SafetyNetAlertsApplication.class);
 	private static final Logger logger = LoggerFactory.getLogger(SafetyNetAlertsApplication.class);
 	public static void main(String[] args) throws IOException{
 		logger.info("Initializing SafetyNet Alerts Application");
